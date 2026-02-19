@@ -1,8 +1,10 @@
-import { BaseBook } from "./BaseBook.js";
+import { BaseBook } from "./BaseBook";
 export class PrintedBook extends BaseBook {
-    constructor(title, author, isbn, publicationDate, genre, price, numPages) {
-        super(title, author, isbn, publicationDate, genre, price);
-        this.numPages = numPages;
+    constructor(data, pages = 300) {
+        super(data, "Printed");
+        this.pages = pages;
+    }
+    getExtraInfo() {
+        return this.pages > 300 ? "Shipping ₹60" : "Shipping ₹40";
     }
 }
-//# sourceMappingURL=PrintedBook.js.map

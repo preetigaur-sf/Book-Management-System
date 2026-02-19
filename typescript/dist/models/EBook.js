@@ -1,14 +1,10 @@
-import { BaseBook } from "./BaseBook.js";
+import { BaseBook } from "./BaseBook";
 export class EBook extends BaseBook {
-    constructor(title, author, isbn, publicationDate, genre, price, fileSizeMB) {
-        super(title, author, isbn, publicationDate, genre, price);
+    constructor(data, fileSizeMB = 5) {
+        super(data, "E-Book");
         this.fileSizeMB = fileSizeMB;
     }
-    calculateDiscountPrice() {
-        return this.price * 0.8;
-    }
     getExtraInfo() {
-        return `E-Book • ${this.fileSizeMB} MB`;
+        return `File Size ${this.fileSizeMB}MB`;
     }
 }
-//# sourceMappingURL=EBook.js.map

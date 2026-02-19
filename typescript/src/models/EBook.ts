@@ -1,26 +1,15 @@
-
-import { BaseBook } from "./BaseBook.js";
-import { Author } from "./Author.js";
-import { Category } from "./Category.js";
+import { BaseBook } from "./BaseBook";
+import { IBook } from "./IBook";
 
 export class EBook extends BaseBook {
-  constructor(
-    title: string,
-    author: Author,
-    isbn: string,
-    publicationDate: string,
-    genre: Category,
-    price: number,
-    public fileSizeMB: number
-  ) {
-    super(title, author, isbn, publicationDate, genre, price);
-  }
+  fileSizeMB: number;
 
-  calculateDiscountPrice(): number {
-    return this.price * 0.8;
+  constructor(data: IBook, fileSizeMB = 5) {
+    super(data, "E-Book");
+    this.fileSizeMB = fileSizeMB;
   }
 
   getExtraInfo(): string {
-    return `E-Book • ${this.fileSizeMB} MB`;
+    return `File Size ${this.fileSizeMB}MB`;
   }
 }

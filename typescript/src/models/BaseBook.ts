@@ -1,51 +1,42 @@
-import { Author } from "./Author";
-import { Category } from "./Category";
+import { IBook } from "./IBook";
 
-export class BaseBook  {
-  constructor(
-    public title: string,
-    public author: Author,
-    public isbn: string,
-    public publicationDate: string,
-    public genre: Category,
-    public price: number,
-  ) {
-    this.age = this.calculateAge();
-    this.type = this.determineType();
-    this.extraInfo = this.generateExtraInfo();
+export abstract class BaseBook {
+  
+
+  title: string;
+  author: string;
+  isbn: string;
+  publication_date: string;
+  genre: string;
+  price: number;
+  type: string;
+
+  constructor(data: IBook, type: string) {
+    this.title = data.title;
+    this.author = data.author;
+    this.isbn = data.isbn;
+    this.publication_date = data.publication_date;
+    this.genre = data.genre;
+    this.price = data.price ?? 0;
+    this.type = type;
   }
 
-  calculateAge(): number {
-    return (
-      new Date().getFullYear() - new Date(this.publicationDate).getFullYear()
-    );
+  calculateAge(): string {
+    
+    const d = new Date(this.publication_date);
+    const t = new Date();
+    let age = t.getFullYear() - d.getFullYear();
+    if (
+      t.getMonth() < d.getMonth() ||
+      (t.getMonth() === d.getMonth() && t.getDate() < d.getDate())
+    )
+      age--;
+    return age <= 0 ? "New" : `${age} yrs`;
   }
 
-  public age: number;
-  public type: string;
-  public extraInfo: string;
-
-  calculateDiscountPrice(): number {
-    return this.price * 0.9;
+  applyDiscount(percent: number): number {
+    return +(this.price - (this.price * percent) / 100).toFixed(2);
   }
 
-  private determineType(): string {
-    if (this.genre.name === "Technology" || this.genre.name === "Science") {
-      return "Educational";
-    }
-    if (this.genre.name === "Fiction") {
-      return "Entertainment";
-    }
-    return "General";
-  }
-
-  private generateExtraInfo(): string {
-    if (this.age >= 50) {
-      return "Classic Book";
-    }
-    if (this.price > 500) {
-      return "Printed Book";
-    }
-    return "EBook";
-  }
+  abstract getExtraInfo(): string;
 }

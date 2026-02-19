@@ -1,17 +1,15 @@
-import { BaseBook } from "./BaseBook.js";
-import { Author } from "./Author.js";
-import { Category } from "./Category.js";
+import { BaseBook } from "./BaseBook";
+import { IBook } from "./IBook";
 
 export class PrintedBook extends BaseBook {
-  constructor(
-    title: string,
-    author: Author,
-    isbn: string,
-    publicationDate: string,
-    genre: Category,
-    price: number,
-    public numPages: number
-  ) {
-    super(title, author, isbn, publicationDate, genre, price);
+  pages: number;
+
+  constructor(data: IBook, pages = 300) {
+    super(data, "Printed");
+    this.pages = pages;
+  }
+
+  getExtraInfo(): string {
+    return this.pages > 300 ? "Shipping ₹60" : "Shipping ₹40";
   }
 }

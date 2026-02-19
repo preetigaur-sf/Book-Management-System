@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { BookManager } from "./manager/BookManager";
+import { BookManager } from "../../src/manager/BookManager";
 const manager = new BookManager();
 const tableBody = document.getElementById("tableBody");
 const mobileBody = document.getElementById("mobileTableBody");
