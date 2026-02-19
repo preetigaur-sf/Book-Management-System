@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BMS - Book Management System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+  
+  <header class="bg-blue-600 text-white py-3 text-center font-semibold">
+    BMS - Book Management System
+  </header>
+
+  
+  <main class="flex justify-center mt-10 px-4">
+    <div class="bg-white w-full max-w-2xl rounded-lg shadow-lg p-6 space-y-4">
+
+     
+      <form id="BookForm" class="space-y-3">
+
+        <div>
+          <label class="text-sm font-medium">Book Title</label>
+          <input id="title" class="w-full border rounded px-3 py-2 mt-1" />
+        </div>
+
+        <div>
+          <label class="text-sm font-medium">Book Author</label>
+          <input id="author" class="w-full border rounded px-3 py-2 mt-1" />
+        </div>
+
+        <div>
+          <label class="text-sm font-medium">ISBN</label>
+          <input id="isbn" class="w-full border rounded px-3 py-2 mt-1" />
+        </div>
+
+        <div>
+          <label class="text-sm font-medium">Publication Date</label>
+          <input id="publication_date" type="date"
+            class="w-full border rounded px-3 py-2 mt-1" />
+        </div>
+
+        <div>
+          <label class="text-sm font-medium">Genre</label>
+          <select id="genre" class="w-full border rounded px-3 py-2 mt-1">
+            <option value="">Select Genre</option>
+            <option>Technology</option>
+            <option>Fiction</option>
+            <option>Non-Fiction</option>
+            <option>History</option>
+          </select>
+        </div>
+
+        
+        <div class="grid grid-cols-3 gap-2 pt-2">
+          <button type="button" onclick="sortBooksByTitle()"
+            class="bg-gray-800 text-white py-2 rounded text-sm">
+            Sort by Title
+          </button>
+          <button type="button" onclick="sortBooksByAuthor()"
+            class="bg-gray-800 text-white py-2 rounded text-sm">
+            Sort by Author
+          </button>
+          <button type="button" onclick="sortBooksByDate()"
+            class="bg-gray-800 text-white py-2 rounded text-sm">
+            Sort by Date
+          </button>
+        </div>
+
+        
+        <div class="grid grid-cols-2 gap-3 pt-2">
+          <button id="submit-btn"
+            class="bg-blue-600 text-white py-2 rounded font-medium">
+            Add Book
+          </button>
+          <button type="button" onclick="loadBooksFromJSON()"
+            class="bg-blue-500 text-white py-2 rounded font-medium">
+            Load Books
+          </button>
+        </div>
+      </form>
+
+      
+      <div class="overflow-x-auto pt-4">
+        <table class="w-full text-sm border-collapse">
+          <thead class="bg-gray-900 text-white">
+            <tr>
+              <th class="p-2">Title</th>
+              <th>Author</th>
+              <th>ISBN</th>
+              <th>Date</th>
+              <th>Age</th>
+              <th>Genre</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="BookList" class="text-center"></tbody>
+        </table>
+      </div>
+
+    </div>
+  </main>
+
+  
+  <div id="detailModal"
+    class="fixed inset-0 hidden bg-black/50 flex items-center justify-center">
+    <div class="bg-white p-5 rounded w-80">
+      <h3 class="font-semibold mb-2">Book Details</h3>
+      <p id="detailContent" class="text-sm"></p>
+      <button onclick="closeModal()"
+        class="mt-4 bg-blue-600 text-white px-4 py-1 rounded">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <script src="javascript.js"></script>
+</body>
+</html>

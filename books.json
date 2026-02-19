@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "isbn": "9780132350884",
+    "publication_date": "2008-08-01",
+    "genre": "Technology"
+  },
+  {
+    "title": "The Pragmatic Programmer",
+    "author": "Andrew Hunt",
+    "isbn": "9780201616224",
+    "publication_date": "1999-10-20",
+    "genre": "Technology"
+  },
+  {
+    "title": "Atomic Habits",
+    "author": "James Clear",
+    "isbn": "9780735211292",
+    "publication_date": "2018-10-16",
+    "genre": "Non-Fiction"
+  },
+  {
+    "title": "Harry Potter",
+    "author": "J. K. Rowling",
+    "isbn": "9780439708180",
+    "publication_date": "1997-06-26",
+    "genre": "Fiction"
+  }
+]
