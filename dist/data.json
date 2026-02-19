@@ -1,0 +1,155 @@
+[
+    {
+        "title": "Clean Code",
+        "author": "Robert C. Martin",
+        "isbn": "9780132350884",
+        "publicationDate": "2008-08-01",
+        "genre": "Technology",
+        "price": 750,
+        "age": 16
+    },
+    {
+        "title": "Deep Work",
+        "author": "Cal Newport",
+        "isbn": "9781455586691",
+        "publicationDate": "2016-01-05",
+        "genre": "Technology",
+         "price": 500,
+        "age": 16
+    },
+    {
+        "title": "HTML and CSS",
+        "author": "Jon Duckett",
+        "isbn": "9781118008188",
+        "publicationDate": "2011-11-08",
+        "genre": "Technology",
+         "price": 1000,
+        "age": 16
+    },
+    {
+        "title": "Data Structures and Algorithms Made Easy",
+        "author": "Narasimha Karumanchi",
+        "isbn": "9788193245279",
+        "publicationDate": "2016-01-01",
+        "genre": "Technology",
+         "price": 2300,
+        "age": 16
+    },
+    {
+        "title": "Eloquent JavaScript",
+        "author": "Marijn Haverbeke",
+        "isbn": "9781593279509",
+        "publicationDate": "2018-12-04",
+        "genre": "Technology",
+         "price": 1500,
+        "age": 16
+    },
+    {
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee",
+        "isbn": "9780061120084",
+        "publicationDate": "1960-07-11",
+        "genre": "Fiction",
+         "price": 1200,
+        "age": 14
+    },
+    {
+        "title": "A Brief History of Time",
+        "author": "Stephen Hawking",
+        "isbn": "9780553380163",
+        "publicationDate": "1988-04-01",
+        "genre": "Science",
+         "price": 1800,
+        "age": 16
+    },
+    {
+        "title": "The Hobbit",
+        "author": "J.R.R. Tolkien",
+        "isbn": "9780547928227",
+        "publicationDate": "1937-09-21",
+        "genre": "Fantasy",
+         "price": 350,
+        "age": 12
+    },
+    {
+        "title": "The Art of War",
+        "author": "Sun Tzu",
+        "isbn": "9781590302255",
+        "publicationDate": "5th century BC",
+        "genre": "Strategy",
+         "price": 700,
+        "age": 16
+    },
+    {
+        "title": "The Diary of a Young Girl",
+        "author": "Anne Frank",
+        "isbn": "9780553296983",
+        "publicationDate": "1947-06-25",
+        "genre": "Biography",
+         "price": 3000,
+        "age": 13
+    },
+    {
+        "title": "1984",
+        "author": "George Orwell",
+        "isbn": "9780451524935",
+        "publicationDate": "1949-06-08",
+        "genre": "Dystopian",
+         "price": 3200,
+        "age": 15
+    },
+    {
+        "title": "The Great Gatsby",
+        "author": "F. Scott Fitzgerald",
+        "isbn": "9780743273565",
+        "publicationDate": "1925-04-10",
+        "genre": "Classic",
+        "age": 16
+    },
+    {
+        "title": "Sapiens: A Brief History of Humankind",
+        "author": "Yuval Noah Harari",
+        "isbn": "9780062316097",
+        "publicationDate": "2011-01-01",
+        "genre": "History",
+         "price": 750,
+        "age": 17
+    },
+    {
+        "title": "The Catcher in the Rye",
+        "author": "J.D. Salinger",
+        "isbn": "9780316769488",
+        "publicationDate": "1951-07-16",
+        "genre": "Fiction",
+         "price": 999,
+        "age": 15
+    },
+    
+    {
+        "title": "Thinking, Fast and Slow",
+        "author": "Daniel Kahneman",
+        "isbn": "9780374533557",
+        "publicationDate": "2011-10-25",
+        "genre": "Psychology",
+         "price": 650,
+        "age": 16
+    },
+    {
+        "title": "The Lean Startup",
+        "author": "Eric Ries",
+        "isbn": "9780307887894",
+        "publicationDate": "2011-09-13",
+        "genre": "Business",
+         "price": 1550,
+        "age": 18
+    },
+    {
+        "title": "Brave New World",
+        "author": "Aldous Huxley",
+        "isbn": "9780060850524",
+        "publicationDate": "1932-08-01",
+        "genre": "Dystopian",
+         "price": 1750,
+        "age": 16
+    }
+]

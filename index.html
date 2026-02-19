@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Management System</title>
+     <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-100 min-h-screen font-sans">
+    <header class="bg-blue-600 shadow">
+      <nav class="max-w-6xl mx-auto px-4 py-4 text-white text-center text-lg sm:text-xl md:text-2xl font-semibold">
+        BMS - Book Management System
+      </nav>
+    </header>
+
+    <main class="flex justify-center px-3 sm:px-6 py-8">
+      <div class="bg-white w-full max-w-5xl rounded-xl shadow-lg p-6 sm:p-8">
+
+        <form id="bookForm" class="space-y-5">
+
+          <div>
+            <label for="title" class="block mb-1 font-medium text-gray-700">Book Title</label>
+            <input
+              type="text"
+              id="title"
+              required
+              class="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div>
+            <label for="author" class="block mb-1 font-medium text-gray-700">Book Author</label>
+            <input
+              type="text"
+              id="author"
+              required
+              class="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div>
+            <label for="isbn" class="block mb-1 font-medium text-gray-700">ISBN</label>
+            <input
+              type="text"
+              id="isbn"
+              required
+              class="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div>
+            <label for="publicationDate" class="block mb-1 font-medium text-gray-700">Publication Date</label>
+            <input
+              type="date"
+              id="publicationDate"
+              required
+              class="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div>
+            <label for="genre" class="block mb-1 font-medium text-gray-700">Genre</label>
+            <select
+              id="genre"
+              required
+              class="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select Genre</option>
+              <option>Fiction</option>
+              <option>Non-Fiction</option>
+              <option>Science</option>
+              <option>Technology</option>
+              <option>History</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="price" class="block mb-1 font-medium text-gray-700">Price</label>
+            <input
+              type="number"
+              id="price"
+              placeholder="Enter price"
+              required
+              class="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div>
+            <label for="searchInput" class="block mb-1 font-medium text-gray-700">Search Books</label>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search by title, author, ISBN..."
+              class="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button
+              type="button"
+              id="sortTitle"
+              class="bg-gray-800 text-white py-2.5 rounded-lg hover:bg-gray-900 transition"
+            >
+              Sort by Title
+            </button>
+
+            <button
+              type="button"
+              id="sortAuthor"
+              class="bg-gray-800 text-white py-2.5 rounded-lg hover:bg-gray-900 transition"
+            >
+              Sort by Author
+            </button>
+
+            <button
+              type="button"
+              id="sortDate"
+              class="bg-gray-800 text-white py-2.5 rounded-lg hover:bg-gray-900 transition"
+            >
+              Sort by Date
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <button
+              type="submit"
+              id="addBookBtn"
+              class="bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition"
+            >
+              Add Book
+            </button>
+
+            <button
+              type="button"
+              id="loadJsonBtn"
+              class="bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition"
+            >
+              Load Books From API
+            </button>
+          </div>
+
+        </form>
+
+        <div class="mt-10">
+          <div class="hidden md:block overflow-x-auto rounded-lg border border-gray-200">
+            <table class="w-full table-fixed text-sm text-left">
+              <thead class="bg-gray-900 text-white">
+                <tr>
+                  <th class="px-4 py-3 w-[28%]">Title</th>
+                  <th class="px-4 py-3 w-[22%]">Author</th>
+                  <th class="px-4 py-3 w-[25%]">ISBN</th>
+                  <th class="px-4 py-3 w-[25%]">Date</th>
+                  <th class="px-4 py-3 text-center w-[22%]">Age</th>
+                  <th class="px-4 py-3 w-[22%]">Genre</th>
+                  <th class="px-4 py-3 w-[22%]">Price</th>
+                  <th class="px-4 py-3 text-center w-[22%]">Action</th>
+                  <th class="px-4 py-3 w-[22%]">Type</th>
+                  <th class="px-4 py-3 w-[22%]">Extra Info</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody" class="divide-y divide-gray-200 bg-white"></tbody>
+            </table>
+          </div>
+
+          <div id="mobileTableBody" class="md:hidden space-y-4"></div>
+        </div>
+
+      </div>
+    </main>
+
+    <script type="module" src="./dist/script.js"></script>
+  </body>
+</html>
