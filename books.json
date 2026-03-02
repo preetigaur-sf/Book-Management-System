@@ -1,0 +1,162 @@
+[
+  {
+    "title": "Clean Code",
+    "author": { "id": "1", "name": "Robert C. Martin" },
+    "isbn": "9780132350884",
+    "publication_date": "2008-08-01",
+    "genre": { "id": "1", "name": "Technology" },
+    "price": 220
+  },
+  {
+    "title": "The Pragmatic Programmer",
+    "author": { "id": "2", "name": "Andrew Hunt" },
+    "isbn": "9780201616224",
+    "publication_date": "1999-10-20",
+    "genre": { "id": "1", "name": "Technology" },
+    "price": 250
+  },
+  {
+    "title": "Introduction to Algorithms",
+    "author": { "id": "3", "name": "Thomas H. Cormen" },
+    "isbn": "9780262033848",
+    "publication_date": "2009-07-31",
+    "genre": { "id": "1", "name": "Technology" },
+    "price": 500
+  },
+  {
+    "title": "Design Patterns",
+    "author": { "id": "4", "name": "Erich Gamma" },
+    "isbn": "9780201633610",
+    "publication_date": "1994-10-21",
+    "genre": { "id": "1", "name": "Technology" },
+    "price": 320
+  },
+  {
+    "title": "You Don’t Know JS",
+    "author": { "id": "5", "name": "Kyle Simpson" },
+    "isbn": "9781491904244",
+    "publication_date": "2015-12-27",
+    "genre": { "id": "1", "name": "Technology" },
+    "price": 200
+  },
+  {
+    "title": "Effective Java",
+    "author": { "id": "6", "name": "Joshua Bloch" },
+    "isbn": "9780134685991",
+    "publication_date": "2018-01-06",
+    "genre": { "id": "1", "name": "Technology" },
+    "price": 350
+  },
+  {
+    "title": "Python Crash Course",
+    "author": { "id": "7", "name": "Eric Matthes" },
+    "isbn": "9781593279288",
+    "publication_date": "2019-05-03",
+    "genre": { "id": "1", "name": "Technology" },
+    "price": 280
+  },
+  {
+    "title": "Fluent Python",
+    "author": { "id": "8", "name": "Luciano Ramalho" },
+    "isbn": "9781491946008",
+    "publication_date": "2015-08-20",
+    "genre": { "id": "1", "name": "Technology" },
+    "price": 420
+  },
+  {
+    "title": "Head First Java",
+    "author": { "id": "9", "name": "Kathy Sierra" },
+    "isbn": "9780596009205",
+    "publication_date": "2005-02-09",
+    "genre": { "id": "1", "name": "Technology" },
+    "price": 300
+  },
+  {
+    "title": "Learning SQL",
+    "author": { "id": "10", "name": "Alan Beaulieu" },
+    "isbn": "9780596520830",
+    "publication_date": "2009-03-25",
+    "genre": { "id": "1", "name": "Technology" },
+    "price": 210
+  },
+  {
+    "title": "Refactoring",
+    "author": { "id": "11", "name": "Martin Fowler" },
+    "isbn": "9780201485677",
+    "publication_date": "1999-07-08",
+    "genre": { "id": "1", "name": "Technology" },
+    "price": 360
+  },
+  {
+    "title": "Cracking the Coding Interview",
+    "author": { "id": "12", "name": "Gayle Laakmann McDowell" },
+    "isbn": "9780984782857",
+    "publication_date": "2015-07-01",
+    "genre": { "id": "2", "name": "Interview Prep" },
+    "price": 400
+  },
+  {
+    "title": "System Design Interview",
+    "author": { "id": "13", "name": "Alex Xu" },
+    "isbn": "9781736049112",
+    "publication_date": "2020-06-12",
+    "genre": { "id": "2", "name": "Interview Prep" },
+    "price": 380
+  },
+  {
+    "title": "Operating System Concepts",
+    "author": { "id": "14", "name": "Abraham Silberschatz" },
+    "isbn": "9781118063330",
+    "publication_date": "2012-03-12",
+    "genre": { "id": "3", "name": "Computer Science" },
+    "price": 450
+  },
+  {
+    "title": "Computer Networks",
+    "author": { "id": "15", "name": "Andrew S. Tanenbaum" },
+    "isbn": "9780132126953",
+    "publication_date": "2010-10-29",
+    "genre": { "id": "3", "name": "Computer Science" },
+    "price": 480
+  },
+  {
+    "title": "Database System Concepts",
+    "author": { "id": "16", "name": "Henry F. Korth" },
+    "isbn": "9780073523323",
+    "publication_date": "2010-01-12",
+    "genre": { "id": "3", "name": "Computer Science" },
+    "price": 460
+  },
+  {
+    "title": "Artificial Intelligence",
+    "author": { "id": "17", "name": "Stuart Russell" },
+    "isbn": "9780136042594",
+    "publication_date": "2009-12-11",
+    "genre": { "id": "4", "name": "AI" },
+    "price": 520
+  },
+  {
+    "title": "Machine Learning",
+    "author": { "id": "18", "name": "Tom Mitchell" },
+    "isbn": "9780070428072",
+    "publication_date": "1997-03-01",
+    "genre": { "id": "4", "name": "AI" },
+    "price": 490
+  },
+  {
+    "title": "Deep Learning",
+    "author": { "id": "19", "name": "Ian Goodfellow" },
+    "isbn": "9780262035613",
+    "publication_date": "2016-11-18",
+    "genre": { "id": "4", "name": "AI" },
+    "price": 550
+  },
+  {
+    "title": "Data Science from Scratch",
+    "author": { "id": "20", "name": "Joel Grus" },
+    "isbn": "9781492041139",
+    "publication_date": "2019-04-12",
+    "genre": { "id": "5", "name": "Data Science" },
+    "price": 330
+  }
+]
