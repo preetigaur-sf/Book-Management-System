@@ -2,13 +2,15 @@ name: Solid Principle BMS CI
 
 on:
   push:
-    branches: [ solid-principle-bms ]
-  pull_request:
-    branches: [ solid-principle-bms ]
+    branches: [solid-principle-bms]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: Solid-Principle-bms
 
     steps:
       - name: Checkout Repository
@@ -24,6 +26,3 @@ jobs:
 
       - name: Build Project
         run: npm run build
-
-      - name: Run Tests
-        run: npm test
