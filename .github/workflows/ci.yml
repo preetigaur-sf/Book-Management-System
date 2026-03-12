@@ -1,0 +1,29 @@
+name: Solid Principle BMS CI
+
+on:
+  push:
+    branches: [ solid-principle-bms ]
+  pull_request:
+    branches: [ solid-principle-bms ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Run Tests
+        run: npm test
