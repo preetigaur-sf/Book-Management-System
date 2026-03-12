@@ -1,0 +1,242 @@
+[
+  {
+    "title": "Harry Potter",
+    "author": { "id": 1, "name": "J. K. Rowling" },
+    "isbn": "9780439708180",
+    "publication_date": "1997-06-26",
+    "category": { "id": 1, "name": "Fiction" },
+    "type": "Printed"
+  },
+  {
+    "title": "The Pragmatic Programmer",
+    "author": { "id": 2, "name": "Andrew Hunt" },
+    "isbn": "9780201616224",
+    "publication_date": "1999-10-20",
+    "category": { "id": 2, "name": "Technology" },
+    "type": "Printed"
+  },
+  {
+    "title": "Clean Code",
+    "author": { "id": 3, "name": "Robert C. Martin" },
+    "isbn": "9780132350884",
+    "publication_date": "2008-08-01",
+    "category": { "id": 2, "name": "Technology" },
+    "type": "EBook"
+  },
+  {
+    "title": "Atomic Habits",
+    "author": { "id": 4, "name": "James Clear" },
+    "isbn": "9780735211292",
+    "publication_date": "2018-10-16",
+    "category": { "id": 3, "name": "Non-Fiction" },
+    "type": "Printed"
+  },
+  {
+    "title": "Deep Work",
+    "author": { "id": 5, "name": "Cal Newport" },
+    "isbn": "9781455586691",
+    "publication_date": "2016-01-05",
+    "category": { "id": 3, "name": "Non-Fiction" },
+    "type": "EBook"
+  },
+  {
+    "title": "The Lean Startup",
+    "author": { "id": 6, "name": "Eric Ries" },
+    "isbn": "9780307887894",
+    "publication_date": "2011-09-13",
+    "category": { "id": 4, "name": "Business" },
+    "type": "Printed"
+  },
+  {
+    "title": "Zero to One",
+    "author": { "id": 7, "name": "Peter Thiel" },
+    "isbn": "9780804139298",
+    "publication_date": "2014-09-16",
+    "category": { "id": 4, "name": "Business" },
+    "type": "EBook"
+  },
+  {
+    "title": "The Alchemist",
+    "author": { "id": 8, "name": "Paulo Coelho" },
+    "isbn": "9780062315007",
+    "publication_date": "1988-04-15",
+    "category": { "id": 1, "name": "Fiction" },
+    "type": "Printed"
+  },
+  {
+    "title": "Think and Grow Rich",
+    "author": { "id": 9, "name": "Napoleon Hill" },
+    "isbn": "9781585424337",
+    "publication_date": "1937-03-01",
+    "category": { "id": 5, "name": "Self-Help" },
+    "type": "EBook"
+  },
+  {
+    "title": "The Psychology of Money",
+    "author": { "id": 10, "name": "Morgan Housel" },
+    "isbn": "9780857197689",
+    "publication_date": "2020-09-08",
+    "category": { "id": 6, "name": "Finance" },
+    "type": "Printed"
+  },
+  {
+    "title": "Sapiens",
+    "author": { "id": 11, "name": "Yuval Noah Harari" },
+    "isbn": "9780062316097",
+    "publication_date": "2011-06-04",
+    "category": { "id": 7, "name": "History" },
+    "type": "Printed"
+  },
+  {
+    "title": "Homo Deus",
+    "author": { "id": 11, "name": "Yuval Noah Harari" },
+    "isbn": "9780062464316",
+    "publication_date": "2015-09-08",
+    "category": { "id": 7, "name": "History" },
+    "type": "EBook"
+  },
+  {
+    "title": "The Power of Habit",
+    "author": { "id": 12, "name": "Charles Duhigg" },
+    "isbn": "9780812981605",
+    "publication_date": "2012-02-28",
+    "category": { "id": 3, "name": "Non-Fiction" },
+    "type": "Printed"
+  },
+  {
+    "title": "Mindset",
+    "author": { "id": 13, "name": "Carol Dweck" },
+    "isbn": "9780345472328",
+    "publication_date": "2006-02-28",
+    "category": { "id": 5, "name": "Self-Help" },
+    "type": "EBook"
+  },
+  {
+    "title": "Grit",
+    "author": { "id": 14, "name": "Angela Duckworth" },
+    "isbn": "9781501111105",
+    "publication_date": "2016-05-03",
+    "category": { "id": 5, "name": "Self-Help" },
+    "type": "Printed"
+  },
+  {
+    "title": "Refactoring",
+    "author": { "id": 15, "name": "Martin Fowler" },
+    "isbn": "9780134757599",
+    "publication_date": "2018-11-19",
+    "category": { "id": 2, "name": "Technology" },
+    "type": "Printed"
+  },
+  {
+    "title": "Eloquent JavaScript",
+    "author": { "id": 16, "name": "Marijn Haverbeke" },
+    "isbn": "9781593279509",
+    "publication_date": "2018-12-04",
+    "category": { "id": 2, "name": "Technology" },
+    "type": "EBook"
+  },
+  {
+    "title": "Cracking the Coding Interview",
+    "author": { "id": 17, "name": "Gayle Laakmann McDowell" },
+    "isbn": "9780984782857",
+    "publication_date": "2015-07-01",
+    "category": { "id": 2, "name": "Technology" },
+    "type": "Printed"
+  },
+  {
+    "title": "Drive",
+    "author": { "id": 18, "name": "Daniel Pink" },
+    "isbn": "9781594484803",
+    "publication_date": "2009-12-29",
+    "category": { "id": 8, "name": "Psychology" },
+    "type": "EBook"
+  },
+  {
+    "title": "Make Time",
+    "author": { "id": 19, "name": "Jake Knapp" },
+    "isbn": "9780525572428",
+    "publication_date": "2018-09-25",
+    "category": { "id": 3, "name": "Non-Fiction" },
+    "type": "Printed"
+  },
+  {
+    "title": "Peopleware",
+    "author": { "id": 20, "name": "Tom DeMarco" },
+    "isbn": "9780932633439",
+    "publication_date": "1987-01-01",
+    "category": { "id": 2, "name": "Technology" },
+    "type": "Printed"
+  },
+  {
+    "title": "The Mythical Man-Month",
+    "author": { "id": 21, "name": "Frederick Brooks" },
+    "isbn": "9780201835953",
+    "publication_date": "1975-01-01",
+    "category": { "id": 2, "name": "Technology" },
+    "type": "Printed"
+  },
+  {
+    "title": "Hooked",
+    "author": { "id": 22, "name": "Nir Eyal" },
+    "isbn": "9781591847786",
+    "publication_date": "2014-11-04",
+    "category": { "id": 4, "name": "Business" },
+    "type": "EBook"
+  },
+  {
+    "title": "Start With Why",
+    "author": { "id": 23, "name": "Simon Sinek" },
+    "isbn": "9781591846444",
+    "publication_date": "2009-10-29",
+    "category": { "id": 4, "name": "Business" },
+    "type": "Printed"
+  },
+  {
+    "title": "Rich Dad Poor Dad",
+    "author": { "id": 24, "name": "Robert Kiyosaki" },
+    "isbn": "9781612680194",
+    "publication_date": "1997-04-01",
+    "category": { "id": 6, "name": "Finance" },
+    "type": "Printed"
+  },
+  {
+    "title": "Algorithms to Live By",
+    "author": { "id": 25, "name": "Brian Christian" },
+    "isbn": "9781627790369",
+    "publication_date": "2016-04-19",
+    "category": { "id": 2, "name": "Technology" },
+    "type": "EBook"
+  },
+  {
+    "title": "The Clean Coder",
+    "author": { "id": 3, "name": "Robert C. Martin" },
+    "isbn": "9780137081073",
+    "publication_date": "2011-05-13",
+    "category": { "id": 2, "name": "Technology" },
+    "type": "Printed"
+  },
+  {
+    "title": "Working Effectively with Legacy Code",
+    "author": { "id": 26, "name": "Michael Feathers" },
+    "isbn": "9780131177055",
+    "publication_date": "2004-09-30",
+    "category": { "id": 2, "name": "Technology" },
+    "type": "Printed"
+  },
+  {
+    "title": "The 4-Hour Workweek",
+    "author": { "id": 27, "name": "Timothy Ferriss" },
+    "isbn": "9780307465351",
+    "publication_date": "2007-04-24",
+    "category": { "id": 3, "name": "Non-Fiction" },
+    "type": "EBook"
+  },
+  {
+    "title": "The Subtle Art of Not Giving a F*ck",
+    "author": { "id": 28, "name": "Mark Manson" },
+    "isbn": "9780062457714",
+    "publication_date": "2016-09-13",
+    "category": { "id": 5, "name": "Self-Help" },
+    "type": "Printed"
+  }
+]

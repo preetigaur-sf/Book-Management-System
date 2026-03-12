@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>BMS - Book Management System (TypeScript)</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+
+  <body
+    class="bg-gradient-to-br from-indigo-100 via-slate-100 to-purple-100 min-h-screen"
+  >
+    
+    <header
+      class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+    >
+      <div
+        class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <h1 class="text-xl font-semibold flex items-center gap-2">
+          <i class="fa-solid fa-book"></i>
+          Book Management System
+        </h1>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto mt-10 px-4">
+      <div class="bg-white rounded-xl shadow-xl p-8 space-y-6">
+        <h2 class="text-lg font-semibold text-gray-700 flex items-center gap-2">
+          <i class="fa-solid fa-plus text-indigo-500"></i>
+          BMS
+        </h2>
+
+        <form id="BookForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm font-medium text-gray-600">Title</label>
+
+            <input
+              id="title"
+              class="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-indigo-400 outline-none"
+              required
+            />
+          </div>
+
+          <div>
+            <label class="text-sm font-medium text-gray-600">Author</label>
+
+            <input
+              id="author"
+              class="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-indigo-400 outline-none"
+              required
+            />
+          </div>
+
+          <div>
+            <label class="text-sm font-medium text-gray-600">ISBN</label>
+
+            <input
+              id="isbn"
+              class="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-indigo-400 outline-none"
+              required
+            />
+          </div>
+
+          <div>
+            <label class="text-sm font-medium text-gray-600"
+              >Publication Date</label
+            >
+
+            <input
+              type="date"
+              id="publication_date"
+              class="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-indigo-400 outline-none"
+              required
+            />
+          </div>
+
+          <div>
+            <label class="text-sm font-medium text-gray-600">Genre</label>
+
+            <select
+              id="genre"
+              class="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-indigo-400 outline-none"
+            >
+              <option value="">Select Genre</option>
+              <option>Technology</option>
+              <option>Fiction</option>
+              <option>Non-Fiction</option>
+              <option>History</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="text-sm font-medium text-gray-600">Book Type</label>
+
+            <select
+              id="type"
+              class="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-indigo-400 outline-none"
+            >
+              <option value="">Select Type</option>
+              <option value="Printed">Printed Book</option>
+              <option value="EBook">EBook</option>
+            </select>
+          </div>
+
+          <div class="md:col-span-2 flex flex-wrap gap-3 pt-2">
+            <button
+              type="button"
+              onclick="sortBooksByTitle()"
+              class="bg-slate-800 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition"
+            >
+              <i class="fa-solid fa-sort"></i>
+              Sort Title
+            </button>
+
+            <button
+              type="button"
+              onclick="sortBooksByAuthor()"
+              class="bg-slate-800 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition"
+            >
+              <i class="fa-solid fa-sort"></i>
+              Sort Author
+            </button>
+
+            <button
+              type="button"
+              onclick="sortBooksByDate()"
+              class="bg-slate-800 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition"
+            >
+              <i class="fa-solid fa-sort"></i>
+              Sort Date
+            </button>
+
+            <button
+              id="submit-btn"
+              class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition shadow"
+            >
+              <i class="fa-solid fa-plus"></i>
+              Add Book
+            </button>
+
+            <button
+              type="button"
+              onclick="loadBooksFromJSON()"
+              class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition shadow"
+            >
+              <i class="fa-solid fa-database"></i>
+              Load Books
+            </button>
+          </div>
+        </form>
+
+        <div class="overflow-x-auto mt-6">
+          <table class="w-full rounded-lg overflow-hidden">
+            <thead
+              class="bg-gradient-to-r from-indigo-700 to-purple-700 text-white text-sm"
+            >
+              <tr>
+                <th class="p-3 text-left">Title</th>
+                <th class="p-3 text-left">Author</th>
+                <th class="p-3 text-left">ISBN</th>
+                <th class="p-3 text-left">Date</th>
+                <th class="p-3 text-left">Age</th>
+                <th class="p-3 text-left">Genre</th>
+                <th class="p-3 text-left">Type</th>
+                <th class="p-3 text-center">Action</th>
+              </tr>
+            </thead>
+
+            <tbody id="BookList" class="bg-white divide-y text-sm"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <div
+      id="detailModal"
+      class="fixed inset-0 hidden bg-black/40 flex items-center justify-center"
+    >
+      <div class="bg-white rounded-xl shadow-xl p-6 w-80">
+        <h3 class="text-lg font-semibold mb-3">Book Details</h3>
+
+        <p id="detailContent" class="text-gray-700 text-sm"></p>
+
+        <button
+          onclick="closeModal()"
+          class="mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+
+    <script type="module" src="./dist/main.js"></script>
+  </body>
+</html>
