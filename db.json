@@ -1,0 +1,185 @@
+{
+  "books": [
+    {
+      "id": "1",
+      "title": "Angular Basics",
+      "author": "John Doe",
+      "isbn": "1234567890",
+      "publication_date": "2022-01-10",
+      "genre": "Technology",
+      "price": 450
+    },
+    {
+      "id": "2",
+      "title": "History of India",
+      "author": "Ramesh Kumar",
+      "isbn": "1234567890123",
+      "publication_date": "2021-03-15",
+      "genre": "History",
+      "price": 350
+    },
+    {
+      "id": "3",
+      "title": "Science Today",
+      "author": "Amit Verma",
+      "isbn": "9876543210",
+      "publication_date": "2020-07-20",
+      "genre": "Science",
+      "price": 500
+    },
+    {
+      "id": "4",
+      "title": "Fiction World",
+      "author": "Neha Sharma",
+      "isbn": "9876543210123",
+      "publication_date": "2019-11-11",
+      "genre": "Fiction",
+      "price": 299
+    },
+    {
+      "id": "5",
+      "title": "Non Fiction Guide",
+      "author": "Rahul Mehta",
+      "isbn": "1122334455",
+      "publication_date": "2023-02-01",
+      "genre": "Non-Fiction",
+      "price": 420
+    },
+    {
+      "id": "6",
+      "title": "Web Development",
+      "author": "Suresh Patel",
+      "isbn": "2233445566778",
+      "publication_date": "2022-06-18",
+      "genre": "Technology",
+      "price": 600
+    },
+    {
+      "id": "7",
+      "title": "Ancient Civilizations",
+      "author": "Pooja Singh",
+      "isbn": "3344556677",
+      "publication_date": "2018-09-25",
+      "genre": "History",
+      "price": 380
+    },
+    {
+      "id": "8",
+      "title": "Physics Simplified",
+      "author": "Anil Gupta",
+      "isbn": "4455667788990",
+      "publication_date": "2021-12-12",
+      "genre": "Science",
+      "price": 520
+    },
+    {
+      "id": "9",
+      "title": "Mystery Stories",
+      "author": "Kavita Joshi",
+      "isbn": "5566778899",
+      "publication_date": "2020-05-30",
+      "genre": "Fiction",
+      "price": 270
+    },
+    {
+      "id": "10",
+      "title": "Life Lessons",
+      "author": "Vikas Roy",
+      "isbn": "6677889900112",
+      "publication_date": "2023-08-14",
+      "genre": "Non-Fiction",
+      "price": 390
+    },
+    {
+      "id": "11",
+      "title": "Java Programming",
+      "author": "Rohit Sharma",
+      "isbn": "7788990011",
+      "publication_date": "2022-04-10",
+      "genre": "Technology",
+      "price": 550
+    },
+    {
+      "id": "12",
+      "title": "World War History",
+      "author": "Arjun Nair",
+      "isbn": "8899001122334",
+      "publication_date": "2017-06-22",
+      "genre": "History",
+      "price": 410
+    },
+    {
+      "id": "13",
+      "title": "Biology Insights",
+      "author": "Meena Iyer",
+      "isbn": "9900112233",
+      "publication_date": "2021-01-05",
+      "genre": "Science",
+      "price": 480
+    },
+    {
+      "id": "14",
+      "title": "Fantasy Tales",
+      "author": "Simran Kaur",
+      "isbn": "1011121314151",
+      "publication_date": "2019-10-19",
+      "genre": "Fiction",
+      "price": 320
+    },
+    {
+      "id": "15",
+      "title": "Self Growth",
+      "author": "Nitin Arora",
+      "isbn": "1213141516",
+      "publication_date": "2023-03-11",
+      "genre": "Non-Fiction",
+      "price": 360
+    },
+    {
+      "id": "16",
+      "title": "AI and Future",
+      "author": "Deepak Chauhan",
+      "isbn": "1314151617181",
+      "publication_date": "2022-07-07",
+      "genre": "Technology",
+      "price": 700
+    },
+    {
+      "id": "17",
+      "title": "Medieval India",
+      "author": "Sunita Devi",
+      "isbn": "1415161718",
+      "publication_date": "2018-02-28",
+      "genre": "History",
+      "price": 340
+    },
+    {
+      "id": "18",
+      "title": "Chemistry Basics",
+      "author": "Rajeev Khanna",
+      "isbn": "1516171819202",
+      "publication_date": "2020-09-09",
+      "genre": "Science",
+      "price": 460
+    },
+    {
+      "id": "19",
+      "title": "Thriller Nights",
+      "author": "Alok Tiwari",
+      "isbn": "1617181920",
+      "publication_date": "2021-11-17",
+      "genre": "Fiction",
+      "price": 310
+    },
+    {
+      "id": "20",
+      "title": "Motivation Daily",
+      "author": "Priya Kapoor",
+      "isbn": "1718192021223",
+      "publication_date": "2023-05-05",
+      "genre": "Non-Fiction",
+      "price": 380
+    }
+  ]
+ 
+}

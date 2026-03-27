@@ -1,0 +1,113 @@
+<div class="p-6">
+
+  <h2 class="text-2xl font-bold mb-6 text-gray-700 text-center">
+    Book List
+  </h2>
+
+  <div *ngIf="books.length === 0" class="text-center text-gray-500 mb-4">
+    No books available 📚
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="w-full border shadow-md rounded-lg">
+
+      <thead class="bg-blue-600 text-white">
+        <tr>
+          <th class="p-3">Title</th>
+          <th class="p-3">Author</th>
+          <th class="p-3">ISBN</th>
+          <th class="p-3">Date</th>
+          <th class="p-3">Genre</th>
+          <th class="p-3">Price</th>
+          <th class="p-3">Action</th>
+        </tr>
+      </thead>
+
+      <tbody class="text-center">
+
+        <tr *ngFor="let book of books" class="border-b hover:bg-gray-100">
+
+          <td class="p-3" *ngIf="editBook?.id !== book.id">
+            {{ book.title | uppercase }}
+          </td>
+          <td *ngIf="editBook?.id === book.id">
+            <input [(ngModel)]="editBook.title" class="border p-1 rounded">
+          </td>
+
+          <td class="p-3" *ngIf="editBook?.id !== book.id">
+            {{ book.author | titlecase }}
+          </td>
+          <td *ngIf="editBook?.id === book.id">
+            <input [(ngModel)]="editBook.author" class="border p-1 rounded">
+          </td>
+
+          <td class="p-3" *ngIf="editBook?.id !== book.id">
+            {{ book.isbn | isbn }}
+          </td>
+          <td *ngIf="editBook?.id === book.id">
+            <input [(ngModel)]="editBook.isbn"
+                   class="border p-1 rounded bg-gray-100"
+                   readonly>
+          </td>
+
+          <td class="p-3" *ngIf="editBook?.id !== book.id">
+            {{ book.publication_date | date:'mediumDate' }}
+          </td>
+          <td *ngIf="editBook?.id === book.id">
+            <input type="date" [(ngModel)]="editBook.publication_date" class="border p-1 rounded">
+          </td>
+
+          <td class="p-3" *ngIf="editBook?.id !== book.id">
+            {{ book.genre | uppercase }}
+          </td>
+          <td *ngIf="editBook?.id === book.id">
+            <select [(ngModel)]="editBook.genre" class="border p-1 rounded">
+              <option>Technology</option>
+              <option>History</option>
+              <option>Science</option>
+              <option>Fiction</option>
+              <option>Non-Fiction</option>
+            </select>
+          </td>
+
+          <td class="p-3" *ngIf="editBook?.id !== book.id">
+            ₹{{ book.price | number }}
+          </td>
+          <td *ngIf="editBook?.id === book.id">
+            <input type="number" [(ngModel)]="editBook.price" class="border p-1 rounded">
+          </td>
+
+          <td class="p-3 flex gap-2 justify-center">
+
+            <button *ngIf="editBook?.id !== book.id"
+              (click)="startEdit(book)"
+              class="bg-green-500 text-white px-3 py-1 rounded">
+              Edit
+            </button>
+
+            <button *ngIf="editBook?.id === book.id"
+              (click)="updateBook()"
+              class="bg-blue-500 text-white px-3 py-1 rounded">
+              Save
+            </button>
+
+            <button *ngIf="editBook?.id === book.id"
+              (click)="cancelEdit()"
+              class="bg-gray-500 text-white px-3 py-1 rounded">
+              Cancel
+            </button>
+
+            <button (click)="deleteBook(book.id)"
+              class="bg-red-500 text-white px-3 py-1 rounded">
+              Delete
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+</div>
