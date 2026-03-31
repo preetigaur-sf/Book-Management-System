@@ -1,0 +1,40 @@
+{
+  "books": [
+    {
+      "title": "History of India",
+      "author": "Ramesh Sharma",
+      "isbn": "9782345678901",
+      "publication_date": "2018-08-15",
+      "genre": "History",
+      "price": 450,
+      "id": "2"
+    },
+    {
+      "id": "3",
+      "title": "Science Wonders",
+      "author": "A.P. Verma",
+      "isbn": "9783456789012",
+      "publication_date": "2020-01-20",
+      "genre": "Science",
+      "price": 420
+    },
+    {
+      "id": "4",
+      "title": "Fictional Dreams",
+      "author": "Priya Gupta",
+      "isbn": "9784567890123",
+      "publication_date": "2021-11-05",
+      "genre": "Fiction",
+      "price": 299
+    },
+    {
+      "id": "5",
+      "title": "Business Growth",
+      "author": "Anil Kapoor",
+      "isbn": "9785678901234",
+      "publication_date": "2019-03-12",
+      "genre": "Non-Fiction",
+      "price": 550
+    }
+  ]
+}

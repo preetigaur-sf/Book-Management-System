@@ -1,0 +1,80 @@
+<div class="max-w-7xl mx-auto mt-8 px-4">
+  <h2 class="text-3xl font-extrabold text-center mb-6 text-indigo-600 tracking-wide">
+    Book Collection
+  </h2>
+
+  <div
+    *ngIf="books.length === 0"
+    class="text-center text-gray-500 bg-white shadow-md rounded-xl p-6"
+  >
+    No books available
+  </div>
+
+  <div
+    *ngIf="books.length > 0"
+    class="bg-white shadow-2xl rounded-2xl overflow-hidden border border-gray-100"
+  >
+    <table class="w-full">
+      <thead
+        class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white text-sm uppercase tracking-wide"
+      >
+        <tr>
+          <th class="p-3">Title</th>
+          <th class="p-3">Author</th>
+          <th class="p-3">ISBN</th>
+          <th class="p-3">Date</th>
+          <th class="p-3">Genre</th>
+          <th class="p-3">Price</th>
+          <th class="p-3">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr
+          *ngFor="let book of books"
+          class="text-center border-t hover:bg-gray-50 transition-all duration-200"
+        >
+          <td class="p-3 font-semibold text-gray-700">
+            {{ book.title | uppercase }}
+          </td>
+
+          <td class="p-3 text-gray-600">
+            {{ book.author | titlecase }}
+          </td>
+
+          <td class="p-3 text-gray-500">
+            {{ book.isbn }}
+          </td>
+
+          <td class="p-3 text-gray-500">
+            {{ book.publication_date | date: 'dd MMM yyyy' }}
+          </td>
+
+          <td class="p-3 text-indigo-500 font-medium">
+            {{ book.genre | titlecase }}
+          </td>
+
+          <td class="p-3 font-semibold text-green-600">
+            {{ book.price | currency: 'INR' }}
+          </td>
+
+          <td class="p-3 flex justify-center gap-2">
+            <button
+              (click)="editbook(book.id!)"
+              class="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-lg text-sm shadow hover:scale-105 hover:shadow-md transition-all"
+            >
+              Edit
+            </button>
+
+            <button
+              (click)="deletebook(book.id!)"
+              class="bg-gradient-to-r from-red-500 to-pink-500 text-white px-3 py-1 rounded-lg text-sm shadow hover:scale-105 hover:shadow-md transition-all"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

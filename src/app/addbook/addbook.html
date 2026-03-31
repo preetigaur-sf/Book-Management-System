@@ -1,0 +1,101 @@
+<form
+  [formGroup]="bookForm"
+  (ngSubmit)="addbook()"
+  class="max-w-xl mx-auto mt-8 bg-white/80 backdrop-blur-lg shadow-2xl p-8 rounded-2xl border border-gray-200"
+>
+  <h2 class="text-3xl font-bold mb-6 text-center text-blue-600 tracking-wide">Add New Book</h2>
+
+  <div class="space-y-4">
+    <input
+      formControlName="title"
+      placeholder="Title"
+      class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all"
+    />
+
+    <p
+      class="text-red-500 text-sm"
+      *ngIf="bookForm.get('title')?.touched && bookForm.get('title')?.invalid"
+    >
+      Title is required
+    </p>
+
+    <input
+      formControlName="author"
+      placeholder="Author"
+      class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all"
+    />
+
+    <p
+      class="text-red-500 text-sm"
+      *ngIf="bookForm.get('author')?.touched && bookForm.get('author')?.invalid"
+    >
+      Author is required
+    </p>
+
+    <input
+      formControlName="isbn"
+      placeholder="ISBN"
+      class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all"
+    />
+
+    <p
+      class="text-red-500 text-sm"
+      *ngIf="bookForm.get('isbn')?.touched && bookForm.get('isbn')?.invalid"
+    >
+      ISBN must be at least 10 characters
+    </p>
+
+    <input
+      type="date"
+      formControlName="publication_date"
+      class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all"
+    />
+
+    <p
+      class="text-red-500 text-sm"
+      *ngIf="bookForm.get('publication_date')?.touched && bookForm.get('publication_date')?.invalid"
+    >
+      Date is required
+    </p>
+
+    <select
+      formControlName="genre"
+      class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all"
+    >
+      <option value="">Select Genre</option>
+      <option>Technology</option>
+      <option>History</option>
+      <option>Science</option>
+      <option>Non-Fiction</option>
+      <option>Fiction</option>
+    </select>
+
+    <p
+      class="text-red-500 text-sm"
+      *ngIf="bookForm.get('genre')?.touched && bookForm.get('genre')?.invalid"
+    >
+      Genre is required
+    </p>
+
+    <input
+      type="number"
+      formControlName="price"
+      placeholder="Price"
+      class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all"
+    />
+
+    <p
+      class="text-red-500 text-sm"
+      *ngIf="bookForm.get('price')?.touched && bookForm.get('price')?.invalid"
+    >
+      Price must be greater than 0
+    </p>
+  </div>
+
+  <button
+    type="submit"
+    class="w-full mt-6 bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-3 rounded-lg font-semibold shadow-md hover:scale-[1.02] hover:shadow-lg transition-all duration-200"
+  >
+    Add Book
+  </button>
+</form>
