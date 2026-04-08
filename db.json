@@ -1,0 +1,40 @@
+{
+  "books": [
+    {
+      "title": "History of India",
+      "author": "Ramesh Sharma",
+      "isbn": "9782345678901",
+      "publication_date": "2018-08-15",
+      "genre": "History",
+      "price": 850,
+      "id": 2
+    },
+    {
+      "id": 3,
+      "title": "Science Wonders",
+      "author": "A.P. Verma",
+      "isbn": "9783456789012",
+      "publication_date": "2020-01-20",
+      "genre": "Science",
+      "price": 420
+    },
+    {
+      "id": 5,
+      "title": "the complexity of an algorithm",
+      "author": "rahul",
+      "isbn": "98765467890",
+      "publication_date": "2000-03-31",
+      "genre": "Technology",
+      "price": 800
+    },
+    {
+      "title": "The page ",
+      "author": "mr roy",
+      "isbn": "0987654322134",
+      "publication_date": "2003-12-29",
+      "genre": "Fiction",
+      "price": 440,
+      "id": 17
+    }
+  ]
+}
