@@ -7,7 +7,7 @@
     <!-- Using Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      /* Loading Spinner */
+     
       .loader {
         border: 3px solid #f3f3f3;
         border-top: 3px solid #3498db;
@@ -25,9 +25,9 @@
         }
       }
 
-      /* Error Input Style */
+     
       .input-error {
-        border-color: #ef4444 !important; /* Red-500 */
+        border-color: #ef4444 !important;
         background-color: #fef2f2;
       }
       .input-error:focus {
@@ -37,12 +37,12 @@
     </style>
   </head>
   <body class="bg-gray-50 font-sans text-gray-900">
-    <!-- Notification Popup -->
+   
     <div id="notification"
       class="fixed top-6 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-lg shadow-xl text-white font-semibold transition-all duration-300 opacity-0 pointer-events-none -translate-y-full z-50">
       Message goes here</div>
 
-    <!-- Navigation -->
+   
     <nav class="bg-blue-600 text-white p-4 shadow-md sticky top-0 z-40">
       <div class="container mx-auto flex justify-between items-center">
         <span class="text-xl font-bold tracking-wide">📚 BMS</span>
@@ -56,16 +56,15 @@
       </div>
     </nav>
 
-    <!-- Main Container -->
+   
     <main class="container mx-auto p-6 max-w-4xl">
-      <!-- Form Section -->
+    
       <div class="bg-white p-6 rounded-lg shadow-md mb-8">
         <div class="flex justify-between items-center mb-4">
           <h2 id="form-title" class="text-2xl font-semibold text-gray-700">
             Add New Book
           </h2>
 
-         <!-- Async loader -->
           <div id="loading-indicator"class="hidden flex items-center text-sm text-blue-600 font-medium">
             <div class="loader mr-2"></div>
             Saving...
@@ -74,35 +73,33 @@
 
         <form id="BookForm"class="grid grid-cols-1 md:grid-cols-2 gap-6"novalidate>
 
-          <!-- Title -->
+         
           <div class="form-group col-span-2 md:col-span-1">
             <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Book Title</label>
             <input type="text"id="title"class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none transition-colors"placeholder="Enter title"required/>
             <span class="text-xs text-red-500 hidden" id="error-title">Title is required</span>
           </div>
 
-          <!-- Author -->
+          
           <div class="form-group col-span-2 md:col-span-1">
             <label for="author" class="block text-sm font-medium text-gray-700 mb-1">Book Author</label>
             <input type="text"id="author"class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none transition-colors" placeholder="Enter author"required/>
             <span class="text-xs text-red-500 hidden" id="error-author">Author is required</span>
           </div>
 
-          <!-- ISBN -->
           <div class="form-group">
             <label for="isbn"class="block text-sm font-medium text-gray-700 mb-1">ISBN (10-13 digits/dashes)</label>
             <input type="text"id="isbn"class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none transition-colors"placeholder="e.g. 978-3-16-148410-0"required/>
             <span class="text-xs text-red-500 hidden" id="error-isbn">Invalid ISBN format</span>
           </div>
 
-          <!-- Publication Date -->
+         
           <div class="form-group">
             <label for="publication_date"class="block text-sm font-medium text-gray-700 mb-1">Publication Date</label>
             <input type="date"id="publication_date"class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none transition-colors"required/>
             <span class="text-xs text-red-500 hidden" id="error-date">Date cannot be in the future</span>
           </div>
 
-          <!-- Genre -->
           <div class="form-group col-span-2">
             <label for="genre"class="block text-sm font-medium text-gray-700 mb-1">Genre</label>
             <select id="genre"class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none transition-colors"required>
@@ -117,7 +114,7 @@
             </select>
           </div>
 
-          <!-- Buttons -->
+         
           <div class="col-span-2 flex gap-4">
             <button type="submit"id="submit-btn"class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
               Add Book</button>
@@ -127,7 +124,7 @@
         </form>
       </div>
 
-      <!-- Dashboard Stats -->
+    
       <div id="dashboard" class="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
         <div
           class="bg-white p-4 rounded-lg shadow-md border-l-4 border-blue-500">
@@ -148,7 +145,7 @@
         </div>
       </div>
 
-      <!-- List Section -->
+     
       <div class="bg-white rounded-lg shadow-md overflow-hidden">
         <div
           class="p-4 border-b bg-gray-50 flex flex-col md:flex-row justify-between items-center gap-4">
@@ -156,7 +153,7 @@
             Library Collection
           </h2>
 
-          <!-- Async Search Input -->
+         
           <div class="relative w-full md:w-64">
             <input type="text" id="search-input"placeholder="Server search (Type book name)..."class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"/>
             <div class="absolute left-3 top-2.5 text-gray-400">
@@ -168,7 +165,7 @@
         </div>
 
         <div class="overflow-x-auto relative min-h-[200px]">
-          <!-- Search Loading Overlay -->
+    
           <div id="search-loader"class="hidden absolute inset-0 bg-white/80 z-10 flex flex-col justify-center items-center">
             <div class="loader mb-2"></div>
             <span class="text-xs text-gray-500">Searching server...</span>
@@ -187,7 +184,7 @@
               </tr>
             </thead>
             <tbody id="BookList" class="text-sm text-gray-700">
-              <!-- Rows -->
+             
             </tbody>
           </table>
           <div id="empty-message" class="hidden p-8 text-center text-gray-500">
