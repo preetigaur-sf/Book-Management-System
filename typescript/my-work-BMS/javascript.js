@@ -1,4 +1,4 @@
- // --- 1. DOM Elements ---
+
         const bookForm = document.getElementById("BookForm");
         const bookList = document.getElementById("BookList");
         const emptyMessage = document.getElementById("empty-message");
@@ -10,11 +10,10 @@
         const searchInput = document.getElementById("search-input");
         const searchLoader = document.getElementById("search-loader");
         
-        // Stats
+        
         const totalCountEl = document.getElementById("total-count");
         const genreStatsEl = document.getElementById("genre-stats");
 
-        // used to show error messages
 
         const errors = {
             title: document.getElementById('error-title'),
@@ -23,13 +22,13 @@
             date: document.getElementById('error-date')
         };
 
-        // State 
-        let books = [];         //list
-        let filteredBooks = []; // View state
+       
+        let books = [];        
+        let filteredBooks = []; 
         let editingIndex = -1; 
         let searchTimeout = null;
 
-        // Common helpers and UI related code
+       
         const showNotification = (message, type = 'success') => {
             notification.textContent = message;
             const colors = { success: 'bg-green-500', error: 'bg-red-500', info: 'bg-blue-500' };
@@ -64,28 +63,26 @@
             Object.values(errors).forEach(el => el.classList.add('hidden'));
         };
 
-        // Make sure data is correct and follows Bussiness rules
+      
 
 
         const validateInputs = (data) => {
             let isValid = true;
             clearErrors();
 
-            // Title Check
             if (!data.title.trim()) {
                 document.getElementById('title').classList.add('input-error');
                 errors.title.classList.remove('hidden');
                 isValid = false;
             }
 
-            // Author Check
+            
             if (!data.author.trim()) {
                 document.getElementById('author').classList.add('input-error');
                 errors.author.classList.remove('hidden');
                 isValid = false;
             }
-            // Check ISBN carefully: only numbers, dashes, or X are allowed
-           // Remove dashes first, then check if length is 10 or 13
+           
   
             const cleanIsbn = data.isbn.replace(/-/g, '');
             const isbnRegex = /^[0-9-]+X?$/i; 
@@ -96,7 +93,6 @@
                 isValid = false;
             }
 
-            // Date Logic: No future dates
             const selectedDate = new Date(data.publication_date);
             const today = new Date();
             if (selectedDate > today) {
@@ -134,19 +130,15 @@
             return new Date(dateString).toLocaleDateString("en-US", options);
         };
 
-        //  Async Operations 
-
-       // Add delay in server
+      
 
         const simulateServerDelay = (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms));
 
-        // Retrieve Data from Open Library API
         const fetchExternalData = async () => {
             try {
                 showNotification("Connecting to Open Library API...", "info");
                 toggleLoading(true, "Fetching Data...");
                 
-                // Retrieve book data via Open Library Subjects API
 
                 const response = await fetch('https://openlibrary.org/subjects/programming.json?limit=6');
                 
@@ -156,15 +148,14 @@
                 
                 if (!data.works || data.works.length === 0) throw new Error("No data received from API");
 
-                // Convert API response into our format
 
                 const apiBooks = data.works.map(work => ({
                     title: work.title,
                     author: work.authors[0]?.name || "Unknown Author",
-                   // Generate ISBN when missing from API
+                
 
                     isbn: `978-${Math.floor(Math.random() * 1000000000)}`, 
-                   // Use a random date from the last 10 years if API date is missing
+                  
 
                     publication_date: new Date(Date.now() - Math.floor(Math.random() * 315360000000)).toISOString().split('T')[0], 
                     genre: "Technology"
@@ -183,44 +174,44 @@
             }
         };
 
-        // Async search with simulated server 
+       
 
         const handleSearch = async (query) => {
-            // If there is no search query, load the default data
+          
 
             if (!query.trim()) {
                 fetchExternalData();
                 return;
             }
-            // Show a layer on top of the screen
+          
             searchLoader.classList.remove('hidden'); 
 
             
             try {
-                // Indicate search in progress
+              
 
                 showNotification(`Searching for "${query}"...`, "info");
                 
-                // Open Library Search API call
+              
                 const response = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&limit=10`);
                 
                 if (!response.ok) throw new Error("Search API Failed");
 
                 const data = await response.json();
 
-                // Arrange search results properly
+           
 
                 const searchResults = data.docs.map(doc => ({
                     title: doc.title,
                     author: doc.author_name ? doc.author_name[0] : "Unknown Author",
                     
-                    // Create an ISBN if it does not exist
+                 
 
                     isbn: doc.isbn ? doc.isbn[0] : `978-${Math.floor(100000000 + Math.random() * 900000000)}`,
                     publication_date: doc.first_publish_year ? `${doc.first_publish_year}-01-01` : new Date().toISOString().split('T')[0],
                     genre: doc.subject ? doc.subject[0] : "General"
                 }));
-                // Remove old items and show only the new results
+              
 
                 books = [...searchResults];
                 filteredBooks = [...books];
@@ -240,10 +231,10 @@
             clearTimeout(searchTimeout);
             searchTimeout = setTimeout(() => {
                 handleSearch(e.target.value);
-            }, 600); // Debounce
+            }, 600); 
         });
 
-        // ---  Event Handlers ---
+       
 
         bookForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -256,7 +247,7 @@
                 genre: document.getElementById('genre').value
             };
 
-            // Input validation(Make sure data is correct)
+          
 
             if (!validateInputs(bookData)) {
                 showNotification("Please fix errors in the form", "error");
@@ -264,27 +255,26 @@
             }
 
             try {
-                // Act like a server for testing
-
+               
                 const action = editingIndex >= 0 ? "Updating" : "Saving";
                 toggleLoading(true, `${action} to server...`);
                 
-             // Add a delay before continuing
+            
 
                 await simulateServerDelay(1500); 
 
-                // 3. Update State
+             
                 if (editingIndex >= 0) {
                     books[editingIndex] = bookData;
                     showNotification("Book updated successfully!", "success");
                     cancelEdit();
                 } else {
-                    books.unshift(bookData); // Add to top
+                    books.unshift(bookData);
                     showNotification("Book added to library!", "success");
                     bookForm.reset();
                     clearErrors();
                 }
-            // Refresh view without triggering another search request and Update list directly when no search is active
+            
 
                 if (!searchInput.value) {
                     filteredBooks = [...books];
@@ -301,7 +291,7 @@
         window.deleteBook = async (index) => {
             if (!confirm('Are you sure you want to remove this book?')) return;
 
-           // Show feedback before delete finishes
+         
 
             const row = bookList.children[index];
             if(row) row.classList.add('opacity-50', 'bg-red-50');
@@ -310,17 +300,15 @@
                 showNotification("Deleting from server...", "info");
                 await simulateServerDelay(1200);
 
-                // Update index if it changes during edit
+              
 
                 if (editingIndex === index) cancelEdit();
                 else if (index < editingIndex) editingIndex--;
 
-                // Find and delete the right item shown in the filtered view
-
+               
                 const bookToDelete = filteredBooks[index];
                 books = books.filter(b => b !== bookToDelete);
 
-                // Update UI locally to avoid extra delete requests
 
                 filteredBooks = filteredBooks.filter((_, i) => i !== index);
                 
@@ -364,7 +352,7 @@
             cancelBtn.classList.add('hidden');
         };
 
-        // --- Rendering ---
+       
 
         const renderStats = () => {
             totalCountEl.textContent = books.length;
@@ -415,5 +403,5 @@
             });
         };
 
-        // Initialize:- Fetch data on load
+       
         fetchExternalData();
