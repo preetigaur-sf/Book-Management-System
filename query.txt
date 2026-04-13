@@ -1,0 +1,92 @@
+create database Books;
+
+use Books;
+
+CREATE TABLE authors (
+    author_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE categories (
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE booksData (
+    book_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(150) NOT NULL,
+    isbn VARCHAR(20) UNIQUE,
+    publication_date DATE,
+    price DECIMAL(10,2),
+
+    author_id INT,
+    category_id INT,
+
+    FOREIGN KEY (author_id) REFERENCES authors(author_id),
+    FOREIGN KEY (category_id) REFERENCES categories(category_id)
+);
+
+
+INSERT INTO authors (name) VALUES 
+('J.K. Rowling'),
+('Chetan Bhagat'),
+('George Orwell');
+
+INSERT INTO categories (category_name) VALUES 
+('Fiction'),
+('Romance'),
+('Dystopian');
+
+INSERT INTO booksData (title, isbn, publication_date, price, author_id, category_id)
+VALUES
+('Harry Potter', 'ISBN001', '2000-01-01', 499.99, 1, 1),
+('2 States', 'ISBN002', '2009-01-01', 299.99, 2, 2),
+('1984', 'ISBN003', '1949-06-08', 199.99, 3, 3);
+
+
+SELECT 
+    b.book_id,
+    b.title,
+    a.name AS author,
+    c.category_name AS category,
+    b.price
+FROM booksData b
+JOIN authors a ON b.author_id = a.author_id
+JOIN categories c ON b.category_id = c.category_id;  
+
+
+Queries::
+
+use Books;
+
+SELECT * FROM booksData;
+SELECT title, price FROM booksData;
+SELECT * FROM booksData
+WHERE price > 300;
+SELECT * FROM booksData
+WHERE author_id = 1;
+SELECT 
+    b.title,
+    a.name AS author,
+    c.category_name AS category
+FROM booksData b
+JOIN authors a ON b.author_id = a.author_id
+JOIN categories c ON b.category_id = c.category_id;
+SELECT COUNT(*) AS total_books FROM booksData;
+SELECT 
+    c.category_name,
+    COUNT(*) AS total_books
+FROM booksData b
+JOIN categories c ON b.category_id = c.category_id
+GROUP BY c.category_name;
+SELECT MAX(price) AS highest_price FROM booksData;
+SELECT MIN(price) AS lowest_price FROM booksData;
+UPDATE booksData
+SET price = 599.99
+WHERE book_id = 1;
+SELECT * FROM booksData
+WHERE title LIKE '%Harry%';
+SELECT * FROM booksData
+ORDER BY price DESC;
+SELECT * FROM booksData
+LIMIT 2;
