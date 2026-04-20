@@ -1,0 +1,92 @@
+create database BMS;
+
+CREATE TABLE authors (
+  author_id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE categories (
+  category_id INT AUTO_INCREMENT PRIMARY KEY,
+  category_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE books (
+  book_id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(150) NOT NULL,
+  isbn VARCHAR(20) UNIQUE,
+  publication_date DATE,
+  price DECIMAL(10,2),
+
+  author_id INT,
+  category_id INT,
+
+  FOREIGN KEY (author_id) REFERENCES authors(author_id),
+  FOREIGN KEY (category_id) REFERENCES categories(category_id)
+);
+
+USE BMS;
+
+INSERT INTO authors (name) VALUES
+('R.K. Narayan'),
+('Chetan Bhagat'),
+('APJ Abdul Kalam'),
+('Rabindranath Tagore'),
+('Arundhati Roy'),
+('Amish Tripathi'),
+('Sudha Murthy'),
+('Ruskin Bond'),
+('Khushwant Singh'),
+('Shashi Tharoor');
+
+SELECT * FROM authors;
+
+INSERT INTO categories (category_name) VALUES
+('Fiction'),
+('Science'),
+('Technology'),
+('History'),
+('Biography'),
+('Education'),
+('Philosophy'),
+('Business'),
+('Self-Help'),
+('Literature');
+
+select * from  categories;
+
+INSERT INTO books (title, isbn, publication_date, price, author_id, category_id) VALUES
+('Malgudi Days', '9780143331539', '1943-01-01', 350, 1, 1),
+('Five Point Someone', '9788129135728', '2004-01-01', 300, 2, 1),
+('Wings of Fire', '9788173711466', '1999-01-01', 400, 3, 5),
+('Gitanjali', '9780143032498', '1910-01-01', 250, 4, 9),
+('The God of Small Things', '9780679457312', '1997-01-01', 450, 5, 1),
+('The Immortals of Meluha', '9789380658742', '2010-01-01', 500, 6, 1),
+('Wise and Otherwise', '9780143032009', '2002-01-01', 320, 7, 9),
+('The Room on the Roof', '9780143333380', '1956-01-01', 280, 8, 1),
+('Train to Pakistan', '9780143065885', '1956-01-01', 350, 9, 4),
+('The Great Indian Novel', '9780140120495', '1989-01-01', 420, 10, 8);
+
+SELECT 
+    b.title,
+    a.name AS author,
+    c.category_name AS category,
+    b.price
+FROM books b
+JOIN authors a ON b.author_id = a.author_id
+JOIN categories c ON b.category_id = c.category_id;
+
+SELECT * FROM authors WHERE author_id = 1;
+
+SELECT * FROM books;
+
+SELECT * FROM books WHERE price BETWEEN 250 AND 450;
+
+SELECT * FROM authors where author_id = 2;
+
+SELECT * FROM categories
+WHERE category_name = 'Fiction';
+
+//now squelizeBms
+SELECT * FROM Authors;
+SELECT * FROM categories;
+SELECT * FROM Books;
