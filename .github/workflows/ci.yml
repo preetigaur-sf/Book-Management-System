@@ -1,0 +1,33 @@
+name: BMS CI Pipeline
+
+on:
+  push:
+    branches:
+      - Added_Microservice_Architecture_and_loopback4_exercise
+
+  pull_request:
+    branches:
+      - Added_Microservice_Architecture_and_loopback4_exercise
+
+jobs:
+  build-book-service:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: book-service
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Application
+        run: npm run build
