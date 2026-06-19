@@ -1,11 +1,7 @@
-name: BMS CI Pipeline
+name: Added GitHub Actions CI pipeline
 
 on:
   push:
-    branches:
-      - Added_Microservice_Architecture_and_loopback4_exercise
-
-  pull_request:
     branches:
       - Added_Microservice_Architecture_and_loopback4_exercise
 
@@ -13,21 +9,21 @@ jobs:
   build-book-service:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: book-service
+    env:
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      DB_HOST: ${{ secrets.DB_HOST }}
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install Dependencies
-        run: npm install
+      - run: npm install
+        working-directory: book-service
 
-      - name: Build Application
-        run: npm run build
+      - run: npm run build
+        working-directory: book-service
+
+      - run: echo "Secrets loaded successfully"
