@@ -61,7 +61,7 @@ export class UserService {
 
     return this.userRepository.create(user);
   }
-  async loginUser(loginData: LoginRequest): Promise<string> {
+  async loginUser(loginData: LoginRequest): Promise<{token:string;role:string}> {
     const user = await this.userRepository.findOne({
       where: {
         email: loginData.email,
@@ -74,6 +74,7 @@ export class UserService {
     });
 
     if (!user) {
+      console.log("invalid email");
       throw new HttpErrors.Unauthorized('Invalid Email or Password');
     }
 
@@ -83,6 +84,7 @@ export class UserService {
     );
 
     if (!passwordMatched) {
+      console.log("invalid password");
       throw new HttpErrors.Unauthorized('Invalid Email or Password');
     }
 
@@ -95,6 +97,8 @@ export class UserService {
 
     const token = await this.tokenService.generateToken(userProfile);
 
-    return token;
+    return { token,
+      role:user.role?.role_name??"",
+    };
   }
 }

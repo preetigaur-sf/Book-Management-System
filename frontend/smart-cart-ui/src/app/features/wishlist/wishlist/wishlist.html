@@ -16,12 +16,12 @@
 
         <div class="card-body">
 
-          <h5>{{ item.product.name }}</h5>
+          <h5>{{ item.product.name | titlecase}}</h5>
 
           <p>{{ item.product.description }}</p>
 
           <h4 class="text-success">
-            ₹{{ item.product.price }}
+            ₹{{ item.product.price | currency}}
           </h4>
 
           <button

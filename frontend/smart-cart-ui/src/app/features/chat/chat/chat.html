@@ -1,22 +1,18 @@
 <div class="container mt-4">
   <div class="card">
     <div class="card-header">
-      <h3>💬Chat</h3>
+      <h3>Chat</h3>
     </div>
 
-    <div class="card-body chat-body">
-      <div *ngFor="let msg of messages" class="mb-3">
-        <div class="p-2 rounded" [ngClass]="msg.sender_id === 1 ? 'admin-message' : 'user-message'">
+    <div id="scroll" class="card-body chat-body">
+      <div *ngFor="let msg of messages$ | async" class="message-row">
+        <div class="message" [ngClass]="msg.sender_id === 9 ? 'admin-message' : 'user-message'">
           <strong>
             {{ msg.sender_id === 9 ? 'Admin' : 'You' }}
           </strong>
-
           <br />
-
           {{ msg.message }}
-
           <br />
-
           <small>
             {{ msg.created_at | date: 'short' }}
           </small>
@@ -25,13 +21,15 @@
     </div>
 
     <div class="card-footer d-flex">
-      <input
-        type="text"
+      <textarea
         class="form-control"
         [(ngModel)]="message"
-        placeholder="Type your message..."
-      />
-
+        (keydown)="handleEnter($event)"
+        (input)="adjustHeight($event)"
+        placeholder="Type your message"
+        rows="1"
+        style="resize: none; max-height: 120px; overflow-y: auto;"
+      ></textarea>
       <button class="btn btn-primary ms-2" (click)="sendMessage()">Send</button>
     </div>
   </div>

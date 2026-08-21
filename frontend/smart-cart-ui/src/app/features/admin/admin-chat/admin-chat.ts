@@ -1,6 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, OnDestroy, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 import { ChatService } from '../../../core/services/chat.service';
 import { ChatMessage } from '../../../core/models/chat-message.model';
@@ -12,95 +13,69 @@ import { ChatMessage } from '../../../core/models/chat-message.model';
   templateUrl: './admin-chat.html',
   styleUrl: './admin-chat.scss',
 })
-export class AdminChat implements OnInit {
-
+export class AdminChat implements OnInit, AfterViewInit, OnDestroy {
   private chatService = inject(ChatService);
 
-  users: any[] = [];
-
-  messages: ChatMessage[] = [];
+  users$: Observable<any[]> = new Observable();
+  messages$: Observable<ChatMessage[]> = new Observable();
 
   selectedUser: any = null;
-
   message = '';
+  private chatObserver!: MutationObserver;
 
   ngOnInit(): void {
-
-    this.loadUsers();
-
-    setInterval(() => {
-
-      if (this.selectedUser) {
-        this.loadConversation();
-      }
-
-    }, 5000);
-
+    this.users$ = this.chatService.getUsers();
   }
 
-  loadUsers(): void {
-
-    this.chatService.getUsers().subscribe({
-      next: data => {
-        this.users = data;
-      },
-      error: err => {
-        console.error(err);
-      },
-    });
-
+  ngAfterViewInit(): void {
+    this.chatScroll();
   }
 
   selectUser(user: any): void {
-
     this.selectedUser = user;
 
     this.loadConversation();
-
   }
 
   loadConversation(): void {
+    if (!this.selectedUser) return;
 
-    if (!this.selectedUser) {
-      return;
-    }
-
-    this.chatService.getConversation(this.selectedUser.id).subscribe({
-      next: data => {
-        this.messages = data;
-      },
-      error: err => {
-        console.error(err);
-      },
-    });
-
+    this.messages$ = this.chatService.getConversation(this.selectedUser.id);
   }
 
   sendMessage(): void {
-
     if (!this.message.trim() || !this.selectedUser) {
       return;
     }
 
-    this.chatService.sendMessage(
-      this.selectedUser.id,
-      this.message,
-    ).subscribe({
-
+    this.chatService.sendMessage(this.selectedUser.id, this.message).subscribe({
       next: () => {
-
         this.message = '';
 
         this.loadConversation();
-
       },
-
-      error: err => {
+      error: (err) => {
         console.error(err);
       },
-
     });
-
   }
 
+  chatScroll(): void {
+    setTimeout(() => {
+      const container = document.querySelector('.chat-body');
+      if (container) {
+        this.chatObserver = new MutationObserver(() => {
+          container.scrollTop = container.scrollHeight;
+        });
+        this.chatObserver.observe(container, { childList: true });
+        container.scrollTop = container.scrollHeight;
+      }
+    }, 50);
+  }
+
+  ngOnDestroy(): void {
+    if (this.chatObserver) {
+      this.chatObserver.disconnect();
+    }
+  }
 }

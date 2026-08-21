@@ -9,7 +9,7 @@ import { ProductReview } from '../../core/models/product-review';
 })
 export class ReviewService {
   private api = inject(Api);
-
+  
   constructor() {}
 
   getReviews(): Observable<ProductReview[]> {

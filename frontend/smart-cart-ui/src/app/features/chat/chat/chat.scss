@@ -2,14 +2,27 @@
   height: 450px;
   overflow-y: auto;
 }
-.user-message {
-  background: #dbeafe;
-  text-align: right;
+
+.message-row {
+  display: flex;
+  margin-bottom: 12px;
 }
+
+.message {
+  padding: 10px 14px;
+  border-radius: 10px;
+  max-width: 70%;
+  color: black;
+}
+
 .admin-message {
   background: #f1f5f9;
+  margin-right: auto;
   text-align: left;
 }
-.rounded {
-  border-radius: 10px;
+
+.user-message {
+  background: #dbeafe;
+  margin-left: auto;
+  text-align: right;
 }

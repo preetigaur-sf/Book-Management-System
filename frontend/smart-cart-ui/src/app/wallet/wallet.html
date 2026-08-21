@@ -1,0 +1,11 @@
+<div class="wallet-container">
+  <h2>My Wallet</h2>
+  <div class="wallet-cart">
+    <p>Available Balance</p>
+    <h1>{{ currency }} {{ balance }}</h1>
+  </div>
+  <div class="add-money">
+    <input type="number" #amount placeholder="enter amount"/>
+    <button (click)="addMoney(amount.valueAsNumber)">Add Money</button>
+  </div>
+</div>

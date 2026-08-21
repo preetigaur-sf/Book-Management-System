@@ -50,10 +50,14 @@ export class Login {
         this.isSubmitting = false;
 
         console.log('Login Successful');
-        this.router.navigate(['/dashboard']).then((result) => {
-          console.log('Navigation:', result);
-          console.log('Current URL:', this.router.url);
-        });
+        if (response.role === 'ADMIN') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/dashboard']).then((result) => {
+            console.log('Navigation:', result);
+          });
+        }
+        console.log('Current URL:', this.router.url);
       },
 
       error: (error) => {

@@ -79,7 +79,6 @@ export class ProductDetail implements OnInit {
 
       error: (err) => {
         console.error(err);
-
         alert('Failed to remove wishlist');
       },
     });
@@ -89,14 +88,11 @@ export class ProductDetail implements OnInit {
     this.wishlistService.getWishlist().subscribe({
       next: (items) => {
         const item = items.find((w) => w.product_id === this.product?.id);
-
         if (item) {
           this.isWishlisted = true;
-
           this.wishlistId = item.id;
         } else {
           this.isWishlisted = false;
-
           this.wishlistId = undefined;
         }
       },
@@ -109,7 +105,6 @@ export class ProductDetail implements OnInit {
     this.cartService.addToCart(this.product.id, this.quantity).subscribe({
       next: (response) => {
         console.log(response);
-
         alert('Product added to cart successfully');
       },
 

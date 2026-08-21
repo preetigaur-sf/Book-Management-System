@@ -4,12 +4,12 @@
       <h3>🔔 Notifications</h3>
     </div>
 
-    <div class="card-body">
+    <div class="card-body" *ngIf="notifications$ | async as notifications">
       <div
         *ngFor="let notification of notifications"
         class="card mb-3"
         [class.border-primary]="!notification.is_read"
-        (click)="markAsRead(notification.id!)"
+        (click)="$event.stopPropagation(); markAsRead(notification.id!)"
         style="cursor: pointer"
       >
         <div class="card-body">

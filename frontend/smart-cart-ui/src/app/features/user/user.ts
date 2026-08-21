@@ -7,9 +7,7 @@ import { Observable,  } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-
   private api = inject(Api);
-
 
   getUsers(): Observable<User[]> {
     return this.api.get<User[]>('users');
@@ -26,5 +24,5 @@ export class UserService {
   deleteUser(id: number): Observable<void> {
     return this.api.delete<void>(`users/${id}`);
   }
-
+  
 }

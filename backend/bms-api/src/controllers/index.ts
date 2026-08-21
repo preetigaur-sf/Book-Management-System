@@ -12,3 +12,4 @@ export * from './order.controller';
 export * from './order-item.controller';
 export * from './notification.controller';
 export * from './chat-controller.controller';
+export * from './wallet.controller';

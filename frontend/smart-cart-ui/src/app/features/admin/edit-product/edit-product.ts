@@ -65,7 +65,7 @@ export class EditProduct implements OnInit {
     if (this.productForm.invalid) {
       return;
     }
-
+    console.log();
     const formValue = this.productForm.getRawValue();
 
     const product: Product = {
@@ -84,9 +84,9 @@ export class EditProduct implements OnInit {
       },
       error: (err) => {
         console.error(err);
+        console.log(err.error);
         alert('Failed to Update Product');
       },
     });
   }
-
 }

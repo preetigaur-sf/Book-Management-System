@@ -1,6 +1,5 @@
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { UserService } from '../../user/user';
 import { RouterLink } from '@angular/router';
 
@@ -34,18 +33,14 @@ export class AdminUsers implements OnInit {
   }
   deleteUser(id: number): void {
     const confirmed = confirm('Are you sure you want to delete this user?');
-
     if (!confirmed) {
       return;
     }
-
     this.userService.deleteUser(id).subscribe({
       next: () => {
         alert('User Deleted Successfully');
-
         this.loadUsers();
       },
-
       error: (err) => {
         console.error(err);
         alert('Failed to Delete User');

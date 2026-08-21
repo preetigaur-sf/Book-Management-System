@@ -107,8 +107,7 @@ export class Product extends Entity {
   @property({
     type: 'string',
     jsonSchema: {
-      format: 'uri',
-      maxLength: 500,
+      maxLength: 500
     },
     postgresql: {
       columnName: 'image_url',

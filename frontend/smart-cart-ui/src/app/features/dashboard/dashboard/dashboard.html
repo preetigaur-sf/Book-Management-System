@@ -1,32 +1,52 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-
-    <a class="navbar-brand" routerLink="/dashboard/products">
+    <a class="navbar-brand text-white fw-bold text-capitalize" routerLink="/dashboard/products">
       SmartCart
     </a>
 
     <div class="navbar-nav ms-auto">
-
-      <a class="nav-link px-3" routerLink="/dashboard/products">
+      <a
+        class="nav-link px-4 text-white"
+        routerLink="/dashboard/products"
+        routerLinkActive="active"
+      >
         Products
       </a>
 
-      <a class="nav-link px-3" routerLink="/dashboard/wishlist">
+      <a
+        class="nav-link px-3 text-white"
+        routerLink="/dashboard/wishlist"
+        routerLinkActive="active"
+      >
         Wishlist
       </a>
 
-      <a class="nav-link px-3" routerLink="/dashboard/cart">
+      <a class="nav-link px-3 text-white" routerLink="/dashboard/cart" routerLinkActive="active">
         Cart
       </a>
-      <a class="nav-link px-3" routerLink="/dashboard/my-orders">My Orders</a>
-      <a class="nav-link px-3" routerLink="/dashboard/chat">💬Chat</a>
-      <a class="nav-link px-3" routerLink="/dashboard/notifications">🔔Notifications</a>
-      <a class="nav-link text-danger px-3" style="cursor: pointer" (click)="logout()">
+      <a
+        class="nav-link px-3 text-white"
+        routerLink="/dashboard/my-orders"
+        routerLinkActive="active"
+        >My Orders</a
+      >
+
+      <a class="nav-link px-3 text-white" routerLink="/dashboard/chat" routerLinkActive="active"
+        >💬Chat</a
+      >
+
+      <a
+        class="nav-link px-3 text-white"
+        routerLink="/dashboard/notifications"
+        routerLinkActive="active"
+        >🔔Notifications</a
+      >
+
+     <a class="nav-link px-3 text-white"routerLink="/dashboard/wallet"routerLinkActive="active">Wallet</a>
+      <a class="nav-link text-danger px-3 fw-semibold" style="cursor: pointer" (click)="logout()">
         Logout
       </a>
-
     </div>
-
   </div>
 </nav>
 

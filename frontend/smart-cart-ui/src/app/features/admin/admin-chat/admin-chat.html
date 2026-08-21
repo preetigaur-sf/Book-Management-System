@@ -13,7 +13,7 @@
         <div class="list-group list-group-flush">
 
           <button
-            *ngFor="let user of users"
+            *ngFor="let user of users$ |async"
             type="button"
             class="list-group-item list-group-item-action"
             [class.active]="selectedUser?.id === user.id"
@@ -71,7 +71,7 @@
           <div *ngIf="selectedUser">
 
             <div
-              *ngFor="let msg of messages"
+              *ngFor="let msg of messages$ |async"
               class="mb-3">
 
               <div
@@ -91,9 +91,7 @@
                 <br>
 
                 <small>
-
                   {{ msg.created_at | date:'short' }}
-
                 </small>
 
               </div>
@@ -111,6 +109,7 @@
           <input
             class="form-control"
             [(ngModel)]="message"
+            (keyup.enter)="sendMessage()"
             placeholder="Type your reply..." />
 
           <button

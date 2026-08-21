@@ -66,8 +66,8 @@ export class AuthController {
       },
     })
     loginData: LoginRequest,
-  ): Promise<{ token: string }> {
-    const token = await this.userService.loginUser(loginData);
-    return { token };
+  ): Promise<{ token: string;role:string }> {
+    return this.userService.loginUser(loginData);
+    
   }
 }

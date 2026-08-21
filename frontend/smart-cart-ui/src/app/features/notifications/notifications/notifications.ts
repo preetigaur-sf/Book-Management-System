@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { map, Observable } from 'rxjs';
 import { Notification } from '../../../core/models/notification.model';
 import { NotificationService } from '../../../core/services/notification.service';
 
@@ -12,24 +12,20 @@ import { NotificationService } from '../../../core/services/notification.service
   styleUrl: './notifications.scss',
 })
 export class Notifications implements OnInit {
-
   private notificationService = inject(NotificationService);
 
-  notifications: Notification[] = [];
-
+  notifications$: Observable<Notification[]> = new Observable();
+  
+  
   ngOnInit(): void {
     this.loadNotifications();
   }
 
   loadNotifications(): void {
-    this.notificationService.getMyNotifications().subscribe({
-      next: (data) => {
-        this.notifications = data.sort((a,b)=> new Date(b.created_at).getTime()- new Date(a.created_at).getTime());
-      },
-      error: (err) => {
-        console.error(err);
-      },
-    });
+        this.notifications$ = this.notificationService.getMyNotifications().pipe(map(notifications=> notifications.sort((a,b)=> new Date(b.created_at!).getTime()-new Date(a.created_at!).getTime())
+      )
+    );
+
   }
 
   markAsRead(id: number): void {

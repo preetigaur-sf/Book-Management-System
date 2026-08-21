@@ -37,9 +37,7 @@ export class JWTStrategy implements AuthenticationStrategy {
         'Invalid Authorization header.',
       );
     }
-
     const token = parts[1];
-
     return this.tokenService.verifyToken(token);
   }
 }

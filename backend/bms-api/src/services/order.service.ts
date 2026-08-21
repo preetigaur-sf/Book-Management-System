@@ -85,12 +85,12 @@ export class OrderService {
       await this.cartRepository.deleteById(cartItems[i].id);
     }
 
-    this.orderSubject.notify(`Order #${order.id} placed successfully.`);
+    this.orderSubject.notify(`Order ${order.id} placed successfully.`);
 
     await this.notificationService.createNotification(
       userId,
       'Order Placed',
-      `Your order #${order.id} has been placed successfully.`,
+      `Your order ${order.id} has been placed successfully.`,
       'ORDER',
     );
 

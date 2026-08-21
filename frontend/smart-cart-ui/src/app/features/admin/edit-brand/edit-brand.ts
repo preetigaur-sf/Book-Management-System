@@ -23,8 +23,8 @@ import { Brand } from '../../../core/models/brand';
   templateUrl: './edit-brand.html',
   styleUrl: './edit-brand.scss',
 })
-export class EditBrand implements OnInit {
 
+export class EditBrand implements OnInit {
   private formbuilder = inject(FormBuilder);
   private brandService = inject(BrandService);
   private route = inject(ActivatedRoute);
@@ -38,67 +38,41 @@ export class EditBrand implements OnInit {
   });
 
   ngOnInit(): void {
-
     this.brandId = Number(this.route.snapshot.paramMap.get('id'));
-
     this.loadBrand();
-
   }
 
   loadBrand(): void {
-
     this.brandService.getBrandById(this.brandId).subscribe({
-
       next: (brand: Brand) => {
-
         this.brandForm.patchValue({
           name: brand.name,
           description: brand.description,
         });
-
       },
-
       error: (err) => {
-
         console.error(err);
-
         alert('Failed to load brand');
-
       },
-
     });
-
   }
 
   updateBrand(): void {
-
     if (this.brandForm.invalid) {
       return;
     }
-
     this.brandService.updateBrand(
       this.brandId,
       this.brandForm.value as Brand
     ).subscribe({
-
       next: () => {
-
         alert('Brand Updated Successfully');
-
         this.router.navigate(['/admin/brands']);
-
       },
-
       error: (err) => {
-
         console.error(err);
-
         alert('Failed to Update Brand');
-
       },
-
     });
-
   }
-
 }
