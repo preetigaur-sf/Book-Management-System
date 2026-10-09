@@ -1,0 +1,104 @@
+<div class="container mt-4">
+
+  <div class="card">
+
+    <div class="card-header d-flex justify-content-between align-items-center">
+
+      <h2>Users Management</h2>
+
+      <span class="badge bg-light text-dark">
+        Total Users : {{ users.length }}
+      </span>
+
+    </div>
+
+    <div class="card-body">
+
+      <table class="table table-hover table-bordered">
+
+        <thead>
+
+          <tr>
+
+            <th>ID</th>
+
+            <th>First Name</th>
+
+            <th>Last Name</th>
+
+            <th>Email</th>
+
+            <th>Role</th>
+
+            <th width="180">Actions</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let user of users">
+
+            <td>{{ user.id }}</td>
+
+            <td>{{ user.first_name }}</td>
+
+            <td>{{ user.last_name }}</td>
+
+            <td>{{ user.email }}</td>
+
+            <td>
+
+              <span
+                class="badge"
+                [ngClass]="user.role_id === 1 ? 'bg-danger' : 'bg-success'">
+
+                {{ user.role_id === 1 ? 'Admin' : 'User' }}
+
+              </span>
+
+            </td>
+
+            <td>
+
+              <button
+                class="btn btn-warning btn-sm"
+                [routerLink]="['/admin/users/edit', user.id]">
+
+                Edit
+
+              </button>
+
+              <button
+                class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">
+
+                Delete
+
+              </button>
+
+            </td>
+
+          </tr>
+
+          <tr *ngIf="users.length === 0">
+
+            <td
+              colspan="6"
+              class="empty-row">
+
+              No Users Found
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

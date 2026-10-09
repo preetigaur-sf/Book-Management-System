@@ -1,0 +1,60 @@
+.container {
+  max-width: 1200px;
+}
+
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+  background: #0d6efd;
+  color: white;
+  padding: 18px 25px;
+  border-radius: 12px 12px 0 0;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table thead {
+  background: #212529;
+  color: white;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+  text-align: center;
+  padding: 12px;
+}
+
+.table tbody tr:hover {
+  background: #f8f9fa;
+}
+
+.btn {
+  margin-right: 6px;
+}
+
+.btn-warning {
+  color: white;
+}
+
+.badge {
+  font-size: 13px;
+  padding: 8px 10px;
+}
+
+.empty-row {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+}

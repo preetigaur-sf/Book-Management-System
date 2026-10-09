@@ -1,0 +1,93 @@
+.table-container {
+  width: 95%;
+  margin: 25px auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  overflow: hidden;
+}
+
+.table-header {
+  background: linear-gradient(90deg,#0d6efd,#0dcaf0);
+  color: white;
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-header h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.count-badge {
+  background: white;
+  color: #0d6efd;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.review-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.review-table th {
+  background: #f8f9fa;
+  padding: 14px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.review-table td {
+  padding: 14px;
+  border-top: 1px solid #eee;
+}
+
+.review-table tbody tr:hover {
+  background: #f8fbff;
+}
+
+.rating {
+  background: #fff3cd;
+  color: #856404;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.btn-edit {
+  background: #ffc107;
+  color: #000;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.btn-edit:hover {
+  background: #e0a800;
+}
+
+.btn-delete {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+  background: #bb2d3b;
+}
+
+.empty {
+  text-align: center;
+  padding: 30px;
+  color: gray;
+  font-style: italic;
+}

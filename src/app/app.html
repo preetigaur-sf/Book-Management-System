@@ -1,0 +1,23 @@
+<header class="bg-blue-600 text-white text-center py-4 text-xl font-bold">
+  BMS - Book Management System
+</header>
+
+<nav class="flex justify-between items-center px-8 py-3 shadow bg-white">
+  <div class="font-bold text-lg">BMS</div>
+
+  <ul class="flex gap-6 text-gray-700 font-medium">
+    <li>
+      <a routerLink="/" routerLinkActive="text-blue-600 font-bold">Home</a>
+    </li>
+    <li>
+      <a routerLink="/addbook" routerLinkActive="text-blue-600 font-bold">Add Book</a>
+    </li>
+    <li>
+      <a routerLink="/booklist" routerLinkActive="text-blue-600 font-bold">Book List</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="p-6">
+  <router-outlet></router-outlet>
+</div>

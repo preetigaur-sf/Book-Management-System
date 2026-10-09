@@ -1,0 +1,15 @@
+.chat-body {
+  height: 450px;
+  overflow-y: auto;
+}
+.user-message {
+  background: #dbeafe;
+  text-align: right;
+}
+.admin-message {
+  background: #f1f5f9;
+  text-align: left;
+}
+.rounded {
+  border-radius: 10px;
+}

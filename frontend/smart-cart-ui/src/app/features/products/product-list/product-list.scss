@@ -1,0 +1,21 @@
+.card{
+  transition:0.3s;
+  border:none;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 10px 20px rgba(0,0,0,.2);
+}
+
+.card-img-top{
+  object-fit:contain;
+}
+
+.card-title{
+  min-height:50px;
+}
+
+.btn{
+  border-radius:10px;
+}

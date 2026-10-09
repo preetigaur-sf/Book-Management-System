@@ -1,0 +1,58 @@
+<div class="container mt-5">
+
+  <h2 class="mb-4 fw-bold">🛒 Products</h2>
+  <div class="row justify-content-center">
+
+  <div
+    class="col-lg-4 col-md-6 col-sm-12 mb-4"
+    *ngFor="let product of products">
+
+        <img
+          [src]="product.image_url"
+          class="card-img-top p-3"
+          height="250"
+          alt="{{product.name}}">
+
+        <div class="card-body">
+
+          <h5 class="card-title">
+            {{product.name}}
+          </h5>
+
+          <h4 class="text-primary">
+            ₹{{product.price | number}}
+          </h4>
+
+          <p class="text-muted">
+            {{product.description}}
+          </p>
+
+          <span
+            class="badge mb-3"
+            [class.bg-success]="product.stock_quantity > 0"
+            [class.bg-danger]="product.stock_quantity == 0">
+
+            {{product.stock_quantity > 0 ? 'In Stock' : 'Out of Stock'}}
+
+          </span>
+
+        </div>
+
+        <div class="card-footer bg-white border-0">
+
+          <button
+            class="btn btn-primary w-100"
+            (click)="viewProduct(product.id)">
+
+            View Details
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+</div>
+

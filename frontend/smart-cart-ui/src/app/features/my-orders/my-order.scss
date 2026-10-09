@@ -1,0 +1,33 @@
+.card {
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.badge {
+  font-size: 13px;
+  padding: 6px 10px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+h2 {
+  color: #212529;
+}
+
+.text-success {
+  font-size: 18px;
+}
+
+.border {
+  border: 1px solid #e9ecef;
+}
+
+.bg-light {
+  background-color: #f8f9fa;
+}

@@ -1,0 +1,13 @@
+.admin-layout {
+  display: flex;
+}
+
+.main-content {
+  margin-left: 250px;
+  margin-top: 56px;
+  padding: 25px;
+  width: calc(100% - 250px);
+  background: #f5f7fb;
+  min-height: calc(100vh - 56px);
+  overflow-y: auto;
+}

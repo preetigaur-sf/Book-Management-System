@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h3>💬Chat</h3>
+    </div>
+
+    <div class="card-body chat-body">
+      <div *ngFor="let msg of messages" class="mb-3">
+        <div class="p-2 rounded" [ngClass]="msg.sender_id === 1 ? 'admin-message' : 'user-message'">
+          <strong>
+            {{ msg.sender_id === 9 ? 'Admin' : 'You' }}
+          </strong>
+
+          <br />
+
+          {{ msg.message }}
+
+          <br />
+
+          <small>
+            {{ msg.created_at | date: 'short' }}
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer d-flex">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="message"
+        placeholder="Type your message..."
+      />
+
+      <button class="btn btn-primary ms-2" (click)="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>

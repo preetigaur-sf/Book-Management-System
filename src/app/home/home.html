@@ -1,0 +1,67 @@
+<div class="text-center mt-10">
+
+  <!-- Heading -->
+  <h2 class="text-3xl font-bold text-gray-700">
+    Welcome to Book Management System 📚
+  </h2>
+
+  <!-- Description -->
+  <p class="mt-4 text-gray-500">
+    Manage your books easily using Add, Edit and Delete features.
+  </p>
+
+  <!-- Buttons -->
+  <div class="mt-6 flex justify-center gap-4">
+    <a routerLink="/addbook"
+       class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      Add Book
+    </a>
+
+    <a routerLink="/booklist"
+       class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+      View Books
+    </a>
+  </div>
+
+</div>
+
+<!-- CARDS SECTION -->
+<div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 px-10">
+
+  <!-- ADD BOOK CARD -->
+  <div class="bg-white shadow-md rounded-lg p-6 text-center hover:shadow-lg transition">
+    <h3 class="text-xl font-semibold text-blue-600">Add Book</h3>
+    <p class="text-gray-500 mt-2">
+      Easily add new books to your collection with all details.
+    </p>
+    <a routerLink="/addbook"
+       class="inline-block mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      Add Now
+    </a>
+  </div>
+
+  <!-- EDIT BOOK CARD -->
+  <div class="bg-white shadow-md rounded-lg p-6 text-center hover:shadow-lg transition">
+    <h3 class="text-xl font-semibold text-green-600">Edit Book</h3>
+    <p class="text-gray-500 mt-2">
+      Update book details anytime with easy inline editing.
+    </p>
+    <a routerLink="/booklist"
+       class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+      Edit Books
+    </a>
+  </div>
+
+  <!-- DELETE BOOK CARD -->
+  <div class="bg-white shadow-md rounded-lg p-6 text-center hover:shadow-lg transition">
+    <h3 class="text-xl font-semibold text-red-600">Delete Book</h3>
+    <p class="text-gray-500 mt-2">
+      Remove unwanted books from your list instantly.
+    </p>
+    <a routerLink="/booklist"
+       class="inline-block mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+      Manage Books
+    </a>
+  </div>
+
+</div>

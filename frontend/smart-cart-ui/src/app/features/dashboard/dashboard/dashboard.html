@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+
+    <a class="navbar-brand" routerLink="/dashboard/products">
+      SmartCart
+    </a>
+
+    <div class="navbar-nav ms-auto">
+
+      <a class="nav-link px-3" routerLink="/dashboard/products">
+        Products
+      </a>
+
+      <a class="nav-link px-3" routerLink="/dashboard/wishlist">
+        Wishlist
+      </a>
+
+      <a class="nav-link px-3" routerLink="/dashboard/cart">
+        Cart
+      </a>
+      <a class="nav-link px-3" routerLink="/dashboard/my-orders">My Orders</a>
+      <a class="nav-link px-3" routerLink="/dashboard/chat">💬Chat</a>
+      <a class="nav-link px-3" routerLink="/dashboard/notifications">🔔Notifications</a>
+      <a class="nav-link text-danger px-3" style="cursor: pointer" (click)="logout()">
+        Logout
+      </a>
+
+    </div>
+
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <router-outlet></router-outlet>
+</div>

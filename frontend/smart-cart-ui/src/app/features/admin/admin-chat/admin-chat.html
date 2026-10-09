@@ -1,0 +1,132 @@
+<div class="container-fluid mt-3">
+
+  <div class="row">
+
+    <div class="col-md-3">
+
+      <div class="card">
+
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Users</h5>
+        </div>
+
+        <div class="list-group list-group-flush">
+
+          <button
+            *ngFor="let user of users"
+            type="button"
+            class="list-group-item list-group-item-action"
+            [class.active]="selectedUser?.id === user.id"
+            (click)="selectUser(user)">
+
+            <strong>
+              {{ user.first_name }} {{ user.last_name }}
+            </strong>
+
+            <br>
+
+            <small>
+              {{ user.email }}
+            </small>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+    <div class="col-md-9">
+
+      <div class="card">
+
+        <div class="card-header bg-success text-white">
+
+          <h5 class="mb-0">
+
+            <span *ngIf="selectedUser">
+
+              Chat with {{ selectedUser.first_name }}
+
+            </span>
+
+            <span *ngIf="!selectedUser">
+
+              Select User
+
+            </span>
+
+          </h5>
+
+        </div>
+
+        <div class="card-body chat-body">
+
+          <div *ngIf="!selectedUser" class="text-center mt-5">
+
+            <h5>Select a user to start chat.</h5>
+
+          </div>
+
+          <div *ngIf="selectedUser">
+
+            <div
+              *ngFor="let msg of messages"
+              class="mb-3">
+
+              <div
+                class="message-box"
+                [ngClass]="msg.sender_id === 9 ? 'admin-message' : 'user-message'">
+
+                <strong>
+
+                  {{ msg.sender_id === 9 ? 'Admin' : selectedUser.first_name }}
+
+                </strong>
+
+                <br>
+
+                {{ msg.message }}
+
+                <br>
+
+                <small>
+
+                  {{ msg.created_at | date:'short' }}
+
+                </small>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div
+          class="card-footer d-flex"
+          *ngIf="selectedUser">
+
+          <input
+            class="form-control"
+            [(ngModel)]="message"
+            placeholder="Type your reply..." />
+
+          <button
+            class="btn btn-primary ms-2"
+            (click)="sendMessage()">
+
+            Send
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

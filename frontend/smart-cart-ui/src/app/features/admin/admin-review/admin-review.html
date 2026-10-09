@@ -1,0 +1,77 @@
+<div class="table-container">
+
+  <div class="table-header">
+
+    <h2>Reviews Management</h2>
+
+    <span class="count-badge">
+      Total Reviews : {{ reviews.length }}
+    </span>
+
+  </div>
+
+  <table class="review-table">
+
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Product</th>
+        <th>User</th>
+        <th>Rating</th>
+        <th>Comment</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let review of reviews">
+
+        <td>{{ review.id }}</td>
+        <td>{{ review.product?.name }}</td>
+        <td>{{ review.user?.first_name }}</td>
+
+        <td>
+          <span class="rating">
+            ⭐ {{ review.rating }}/5
+          </span>
+        </td>
+
+        <td>{{ review.comment }}</td>
+
+        <td>
+
+          <button
+            class="btn-edit"
+            [routerLink]="['/admin/reviews/edit', review.id]">
+
+            Edit
+
+          </button>
+
+          <button
+            class="btn-btn-danger btn-sm" (click)="deleteReview(review.id!)">
+
+            Delete
+
+          </button>
+
+        </td>
+
+      </tr>
+
+      <tr *ngIf="reviews.length===0">
+
+        <td colspan="6" class="empty">
+
+          No Reviews Found
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
