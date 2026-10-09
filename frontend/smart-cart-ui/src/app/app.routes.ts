@@ -29,7 +29,7 @@ import { Chat } from './features/chat/chat/chat';
 import { Notifications } from './features/notifications/notifications/notifications';
 
 import { AdminChat } from './features/admin/admin-chat/admin-chat';
-import { Wallet } from './wallet/wallet';
+
 
 export const routes: Routes = [
   {
@@ -86,10 +86,7 @@ export const routes: Routes = [
         path: 'notifications',
         component: Notifications,
       },
-      {
-        path:'wallet',
-        component:Wallet
-      },
+     
     ],
   },
 

@@ -21,13 +21,13 @@ export async function seedUsers(
   }
   const adminRole = await roleRepository.findOne({
     where: {
-      role_name: 'ADMIN',
+      name: 'ADMIN',
     },
   });
 
   const userRole = await roleRepository.findOne({
     where: {
-      role_name: 'USER',
+      name: 'USER',
     },
   });
 

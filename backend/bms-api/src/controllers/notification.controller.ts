@@ -19,15 +19,20 @@ import {
 } from '@loopback/rest';
 import {Notification} from '../models';
 import {NotificationRepository} from '../repositories';
-import {authenticate} from '@loopback/authentication';
+import {authenticate, STRATEGY, AuthenticationBindings} from 'loopback4-authentication';
 import {inject} from '@loopback/core';
-import {SecurityBindings, UserProfile} from '@loopback/security';
+import {UserProfile} from '@loopback/security';
+import {authorize} from 'loopback4-authorization';
+import {Permissions} from '../authorization/permissions';
 export class NotificationController {
   constructor(
     @repository(NotificationRepository)
     public notificationRepository: NotificationRepository,
   ) {}
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.CreateNotification],
+  })
   @post('/notifications')
   @response(200, {
     description: 'Notification model instance',
@@ -48,7 +53,10 @@ export class NotificationController {
   ): Promise<Notification> {
     return this.notificationRepository.create(notification);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadNotification],
+  })
   @get('/notifications/count')
   @response(200, {
     description: 'Notification model count',
@@ -59,7 +67,10 @@ export class NotificationController {
   ): Promise<Count> {
     return this.notificationRepository.count(where);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadNotification],
+  })
   @get('/notifications')
   @response(200, {
     description: 'Array of Notification model instances',
@@ -78,13 +89,16 @@ export class NotificationController {
     return this.notificationRepository.find(filter);
   }
 
-  @authenticate('jwt')
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadNotification],
+  })
   @get('/notifications/my')
   @response(200, {
     description: 'Current user notifications',
   })
   async getMyNotifications(
-    @inject(SecurityBindings.USER)
+    @inject(AuthenticationBindings.CURRENT_USER)
     currentUser: UserProfile,
   ): Promise<Notification[]> {
     return this.notificationRepository.find({
@@ -94,6 +108,10 @@ export class NotificationController {
       order: ['created_at DESC'],
     });
   }
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.UpdateNotification],
+  })
   @patch('/notifications')
   @response(200, {
     description: 'Notification PATCH success count',
@@ -112,7 +130,10 @@ export class NotificationController {
   ): Promise<Count> {
     return this.notificationRepository.updateAll(notification, where);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadNotification],
+  })
   @get('/notifications/{id}')
   @response(200, {
     description: 'Notification model instance',
@@ -129,7 +150,10 @@ export class NotificationController {
   ): Promise<Notification> {
     return this.notificationRepository.findById(id, filter);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.UpdateNotification],
+  })
   @patch('/notifications/{id}')
   @response(204, {
     description: 'Notification PATCH success',
@@ -148,7 +172,10 @@ export class NotificationController {
     await this.notificationRepository.updateById(id, notification);
   }
 
-  @authenticate('jwt')
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.UpdateNotification],
+  })
   @patch('/notifications/{id}/read')
   @response(204, {
     description: 'Notification marked as read',
@@ -158,6 +185,10 @@ export class NotificationController {
       is_read: true,
     });
   }
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.UpdateNotification],
+  })
   @put('/notifications/{id}')
   @response(204, {
     description: 'Notification PUT success',
@@ -168,7 +199,10 @@ export class NotificationController {
   ): Promise<void> {
     await this.notificationRepository.replaceById(id, notification);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.DeleteNotification],
+  })
   @del('/notifications/{id}')
   @response(204, {
     description: 'Notification DELETE success',
@@ -177,4 +211,3 @@ export class NotificationController {
     await this.notificationRepository.deleteById(id);
   }
 }
-

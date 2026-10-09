@@ -24,4 +24,12 @@ export namespace TokenServiceBindings {
   export const TOKEN_EXPIRES_IN = BindingKey.create<string>(
     'authentication.jwt.expires.in',
   );
+
+  export const REFRESH_TOKEN_EXPIRES_IN = BindingKey.create<string>(
+    'authentication.refresh.token.expires.in',
+  );
+
+  export const BEARER_TOKEN_VERIFIER = BindingKey.create(
+    'authentication.bearer.token.verifier',
+  );
 }

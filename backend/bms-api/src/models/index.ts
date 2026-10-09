@@ -12,3 +12,4 @@ export * from './place-order-request.model';
 export * from './update-order-status-request.model';
 export * from './notification.model';
 export * from './chat-message.model';
+export * from './refresh-token-request.model';

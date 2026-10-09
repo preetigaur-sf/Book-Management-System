@@ -46,6 +46,7 @@ export class Login {
       next: (response) => {
         console.log(response);
         this.auth.saveToken(response.token);
+        this.auth.saveRefreshToken(response.refreshToken);
 
         this.isSubmitting = false;
 

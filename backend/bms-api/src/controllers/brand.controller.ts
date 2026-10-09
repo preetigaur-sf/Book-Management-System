@@ -20,17 +20,18 @@ import {
 
 import {Brand} from '../models';
 import {BrandRepository} from '../repositories';
-import {authenticate} from '@loopback/authentication';
-import {authorize} from '@loopback/authorization';
-import {Roles} from '../authorization/roles';
-@authenticate('jwt')
+import {authenticate, STRATEGY} from 'loopback4-authentication';
+import {authorize} from 'loopback4-authorization';
+import {Permissions} from '../authorization/permissions';
+
 export class BrandController {
   constructor(
     @repository(BrandRepository)
     public brandRepository: BrandRepository,
   ) {}
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.CreateBrand],
   })
   @post('/brands')
   @response(200, {
@@ -56,7 +57,10 @@ export class BrandController {
   ): Promise<Brand> {
     return this.brandRepository.create(brand);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadBrand],
+  })
   @get('/brands/count')
   @response(200, {
     description: 'Brand model count',
@@ -69,7 +73,10 @@ export class BrandController {
   async count(@param.where(Brand) where?: Where<Brand>): Promise<Count> {
     return this.brandRepository.count(where);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadBrand],
+  })
   @get('/brands')
   @response(200, {
     description: 'Array of Brand model instances',
@@ -87,8 +94,9 @@ export class BrandController {
   async find(@param.filter(Brand) filter?: Filter<Brand>): Promise<Brand[]> {
     return this.brandRepository.find(filter);
   }
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.UpdateBrand],
   })
   @patch('/brands')
   @response(200, {
@@ -114,7 +122,10 @@ export class BrandController {
   ): Promise<Count> {
     return this.brandRepository.updateAll(brand, where);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadBrand],
+  })
   @get('/brands/{id}')
   @response(200, {
     description: 'Brand model instance',
@@ -135,8 +146,9 @@ export class BrandController {
   ): Promise<Brand> {
     return this.brandRepository.findById(id, filter);
   }
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.UpdateBrand],
   })
   @patch('/brands/{id}')
   @response(204, {
@@ -157,8 +169,9 @@ export class BrandController {
   ): Promise<void> {
     await this.brandRepository.updateById(id, brand);
   }
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.UpdateBrand],
   })
   @put('/brands/{id}')
   @response(204, {
@@ -170,8 +183,9 @@ export class BrandController {
   ): Promise<void> {
     await this.brandRepository.replaceById(id, brand);
   }
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.DeleteBrand],
   })
   @del('/brands/{id}')
   @response(204, {

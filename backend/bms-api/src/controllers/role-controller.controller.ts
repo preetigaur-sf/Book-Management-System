@@ -17,15 +17,20 @@ import {
   requestBody,
   response,
 } from '@loopback/rest';
+import {authenticate, STRATEGY} from 'loopback4-authentication';
 import {Role} from '../models';
 import {RoleRepository} from '../repositories';
-
+import {authorize} from 'loopback4-authorization';
+import {Permissions} from '../authorization/permissions';
 export class RoleController {
   constructor(
     @repository(RoleRepository)
-    public roleRepository : RoleRepository,
+    public roleRepository: RoleRepository,
   ) {}
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.CreateRole],
+  })
   @post('/roles')
   @response(200, {
     description: 'Role model instance',
@@ -46,18 +51,22 @@ export class RoleController {
   ): Promise<Role> {
     return this.roleRepository.create(role);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadRole],
+  })
   @get('/roles/count')
   @response(200, {
     description: 'Role model count',
     content: {'application/json': {schema: CountSchema}},
   })
-  async count(
-    @param.where(Role) where?: Where<Role>,
-  ): Promise<Count> {
+  async count(@param.where(Role) where?: Where<Role>): Promise<Count> {
     return this.roleRepository.count(where);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadRole],
+  })
   @get('/roles')
   @response(200, {
     description: 'Array of Role model instances',
@@ -70,12 +79,13 @@ export class RoleController {
       },
     },
   })
-  async find(
-    @param.filter(Role) filter?: Filter<Role>,
-  ): Promise<Role[]> {
+  async find(@param.filter(Role) filter?: Filter<Role>): Promise<Role[]> {
     return this.roleRepository.find(filter);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.UpdateRole],
+  })
   @patch('/roles')
   @response(200, {
     description: 'Role PATCH success count',
@@ -94,7 +104,10 @@ export class RoleController {
   ): Promise<Count> {
     return this.roleRepository.updateAll(role, where);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadRole],
+  })
   @get('/roles/{id}')
   @response(200, {
     description: 'Role model instance',
@@ -106,11 +119,14 @@ export class RoleController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(Role, {exclude: 'where'}) filter?: FilterExcludingWhere<Role>
+    @param.filter(Role, {exclude: 'where'}) filter?: FilterExcludingWhere<Role>,
   ): Promise<Role> {
     return this.roleRepository.findById(id, filter);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.UpdateRole],
+  })
   @patch('/roles/{id}')
   @response(204, {
     description: 'Role PATCH success',
@@ -128,7 +144,10 @@ export class RoleController {
   ): Promise<void> {
     await this.roleRepository.updateById(id, role);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.UpdateRole],
+  })
   @put('/roles/{id}')
   @response(204, {
     description: 'Role PUT success',
@@ -139,7 +158,10 @@ export class RoleController {
   ): Promise<void> {
     await this.roleRepository.replaceById(id, role);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.DeleteRole],
+  })
   @del('/roles/{id}')
   @response(204, {
     description: 'Role DELETE success',

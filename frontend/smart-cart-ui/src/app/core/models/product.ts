@@ -1,3 +1,6 @@
+import { Brand } from "./brand";
+import { Category } from "./category";
+
 export interface Product {
   id: number;
   name: string;
@@ -7,4 +10,8 @@ export interface Product {
   sku: string;
   image_url: string;
   category_id: number;
+  brand_id: number;
+
+  brand? :Brand;
+category?: Category;
 }

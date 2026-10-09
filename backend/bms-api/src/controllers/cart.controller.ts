@@ -8,7 +8,8 @@ import {
   repository,
   Where,
 } from '@loopback/repository';
-
+import {authorize} from 'loopback4-authorization';
+import {Permissions} from '../authorization/permissions';
 import {
   post,
   param,
@@ -21,9 +22,9 @@ import {
   response,
 } from '@loopback/rest';
 
-import {authenticate} from '@loopback/authentication';
-
-import {SecurityBindings, UserProfile} from '@loopback/security';
+import {authenticate, STRATEGY} from 'loopback4-authentication';
+import {AuthenticationBindings} from 'loopback4-authentication';
+import {UserProfile} from '@loopback/security';
 
 import {Cart} from '../models/cart.model';
 import {AddToCartRequest} from '../models/add-to-cart-request.model';
@@ -40,13 +41,16 @@ export class CartController {
     public cartService: CartService,
   ) {}
 
-  @authenticate('jwt')
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.CreateCart],
+  })
   @post('/cart/add')
   @response(200, {
     description: 'Add product to cart',
   })
   async addToCart(
-    @inject(SecurityBindings.USER)
+    @inject(AuthenticationBindings.CURRENT_USER)
     currentUser: UserProfile,
 
     @requestBody({
@@ -63,7 +67,10 @@ export class CartController {
     return this.cartService.addToCart(userId, cartData);
   }
 
-  @authenticate('jwt')
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadCart],
+  })
   @get('/cart')
   @response(200, {
     description: 'Get logged in user cart',
@@ -79,7 +86,7 @@ export class CartController {
     },
   })
   async getCart(
-    @inject(SecurityBindings.USER)
+    @inject(AuthenticationBindings.CURRENT_USER)
     currentUser: UserProfile,
   ): Promise<Cart[]> {
     const userId = Number(currentUser.id);
@@ -87,13 +94,16 @@ export class CartController {
     return this.cartService.getCart(userId);
   }
 
-  @authenticate('jwt')
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.UpdateCart],
+  })
   @patch('/cart/update/{cartId}')
   @response(200, {
     description: 'Update cart quantity',
   })
   async updateCartQuantity(
-    @inject(SecurityBindings.USER)
+    @inject(AuthenticationBindings.CURRENT_USER)
     currentUser: UserProfile,
 
     @param.path.number('cartId')
@@ -112,13 +122,16 @@ export class CartController {
 
     return this.cartService.updateCartQuantity(userId, cartId, cartData);
   }
-  @authenticate('jwt')
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.DeleteCart],
+  })
   @del('/cart/remove/{cartId}')
   @response(200, {
     description: 'Remove product from cart',
   })
   async removeFromCart(
-    @inject(SecurityBindings.USER)
+    @inject(AuthenticationBindings.CURRENT_USER)
     currentUser: UserProfile,
 
     @param.path.number('cartId')
@@ -128,7 +141,10 @@ export class CartController {
 
     return this.cartService.removeFromCart(userId, cartId);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.CreateCart],
+  })
   @post('/carts')
   @response(200, {
     description: 'Cart model instance',
@@ -154,6 +170,10 @@ export class CartController {
     return this.cartRepository.create(cart);
   }
 
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadCart],
+  })
   @get('/carts/count')
   @response(200, {
     description: 'Cart model count',
@@ -167,6 +187,10 @@ export class CartController {
     return this.cartRepository.count(where);
   }
 
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadCart],
+  })
   @get('/carts')
   @response(200, {
     description: 'Array of Cart model instances',
@@ -185,6 +209,10 @@ export class CartController {
     return this.cartRepository.find(filter);
   }
 
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.UpdateCart],
+  })
   @patch('/carts')
   @response(200, {
     description: 'Cart PATCH success count',
@@ -210,6 +238,10 @@ export class CartController {
     return this.cartRepository.updateAll(cart, where);
   }
 
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadCart],
+  })
   @get('/carts/{id}')
   @response(200, {
     description: 'Cart model instance',
@@ -229,6 +261,10 @@ export class CartController {
     return this.cartRepository.findById(id, filter);
   }
 
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.UpdateCart],
+  })
   @patch('/carts/{id}')
   @response(204, {
     description: 'Cart PATCH success',
@@ -249,6 +285,10 @@ export class CartController {
     await this.cartRepository.updateById(id, cart);
   }
 
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.UpdateCart],
+  })
   @put('/carts/{id}')
   @response(204, {
     description: 'Cart PUT success',
@@ -260,6 +300,10 @@ export class CartController {
     await this.cartRepository.replaceById(id, cart);
   }
 
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.DeleteCart],
+  })
   @del('/carts/{id}')
   @response(204, {
     description: 'Cart DELETE success',

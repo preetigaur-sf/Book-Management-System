@@ -1,8 +1,6 @@
 import {
   Count,
   CountSchema,
-  Filter,
-  FilterExcludingWhere,
   repository,
   Where,
 } from '@loopback/repository';
@@ -22,12 +20,14 @@ import {OrderRepository} from '../repositories';
 import {inject, service} from '@loopback/core';
 import {OrderService} from '../services';
 import {CheckoutFacade} from '../facades';
-import {authenticate} from '@loopback/authentication';
-import {SecurityBindings, UserProfile} from '@loopback/security';
+
+import {UserProfile} from '@loopback/security';
+import { AuthenticationBindings } from 'loopback4-authentication';
 import {UpdateOrderStatusRequest} from '../models';
-import {authorize} from '@loopback/authorization';
-import {Roles} from '../authorization/roles';
-@authenticate('jwt')
+import {authorize} from 'loopback4-authorization';
+import {Permissions} from '../authorization/permissions';
+import {authenticate, STRATEGY} from 'loopback4-authentication';
+
 export class OrderController {
   constructor(
     @repository(OrderRepository)
@@ -37,8 +37,9 @@ export class OrderController {
     @inject('facades.CheckoutFacade')
     public checkoutFacade: CheckoutFacade,
   ) {}
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.CreateOrder],
   })
   @post('/orders')
   @response(200, {
@@ -60,8 +61,9 @@ export class OrderController {
   ): Promise<Order> {
     return this.orderRepository.create(order);
   }
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.ReadOrder],
   })
   @get('/orders/count')
   @response(200, {
@@ -71,8 +73,9 @@ export class OrderController {
   async count(@param.where(Order) where?: Where<Order>): Promise<Count> {
     return this.orderRepository.count(where);
   }
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.UpdateOrder],
   })
   @patch('/orders')
   @response(200, {
@@ -92,8 +95,9 @@ export class OrderController {
   ): Promise<Count> {
     return this.orderRepository.updateAll(order, where);
   }
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.UpdateOrder],
   })
   @patch('/orders/{id}')
   @response(204, {
@@ -112,8 +116,9 @@ export class OrderController {
   ): Promise<void> {
     await this.orderRepository.updateById(id, order);
   }
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.UpdateOrder],
   })
   @put('/orders/{id}')
   @response(204, {
@@ -126,13 +131,16 @@ export class OrderController {
     await this.orderRepository.replaceById(id, order);
   }
 
-  @authenticate('jwt')
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.CreateOrder],
+  })
   @post('/orders/place-order')
   @response(200, {
     description: 'placed order',
   })
   async placeOrder(
-    @inject(SecurityBindings.USER)
+    @inject(AuthenticationBindings.CURRENT_USER)
     currentUser: UserProfile,
 
     @requestBody()
@@ -142,26 +150,32 @@ export class OrderController {
     return this.checkoutFacade.placeOrder(userId, orderData);
   }
 
-  @authenticate('jwt')
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadOrder],
+  })
   @get('/orders/my-orders')
   @response(200, {
     description: 'my orders',
   })
   async getMyOrders(
-    @inject(SecurityBindings.USER)
+  @inject(AuthenticationBindings.CURRENT_USER)
     currentUser: UserProfile,
   ) {
     const userId = Number(currentUser.id);
     return this.orderService.getMyOrders(userId);
   }
 
-  @authenticate('jwt')
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadOrder],
+  })
   @get('/orders/{orderId}')
   @response(200, {
     description: 'Get order by id',
   })
   async getOrderById(
-    @inject(SecurityBindings.USER)
+    @inject(AuthenticationBindings.CURRENT_USER)
     currentUser: UserProfile,
     @param.path.number('orderId') orderId: number,
   ) {
@@ -169,22 +183,26 @@ export class OrderController {
     return this.orderService.getOrderById(userId, orderId);
   }
 
-  @authenticate('jwt')
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.UpdateOrder],
+  })
   @patch('/orders/cancel/{orderId}')
   @response(200, {
     description: 'cancel order',
   })
   async cancelOrder(
-    @inject(SecurityBindings.USER)
+   @inject(AuthenticationBindings.CURRENT_USER)
     currentUser: UserProfile,
     @param.path.number('orderId') orderId: number,
   ) {
     const userId = Number(currentUser.id);
     return this.orderService.cancelOrder(userId, orderId);
   }
-@authorize({
-  allowedRoles: [Roles.ADMIN],
-})
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.UpdateOrder],
+  })
   @patch('/orders/{id}/status')
   async updateOrderStatus(
     @param.path.number('id') id: number,
@@ -194,23 +212,29 @@ export class OrderController {
   ) {
     return this.orderService.updateOrderStatus(id, body.order_status);
   }
-  @authenticate('jwt')
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.ReadOrder],
   })
   @get('/orders')
   async getAllOrders() {
     return this.orderService.getAllOrders();
   }
 
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadOrder],
+  })
   @get('/orders/admin/{id}')
-  @authenticate('jwt')
   async getOrderByIdForAdmin(@param.path.number('id') id: number) {
     return this.orderService.getOrderByIdForAdmin(id);
   }
 
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.DeleteOrder],
+  })
   @del('/orders/{id}')
-  @authenticate('jwt')
   async deleteOrder(@param.path.number('id') id: number) {
     return this.orderService.deleteOrder(id);
   }

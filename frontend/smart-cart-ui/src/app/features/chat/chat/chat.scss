@@ -1,28 +1,28 @@
 .chat-body {
-  height: 450px;
+  height: 500px;
   overflow-y: auto;
 }
 
 .message-row {
   display: flex;
+  width: 100%;
   margin-bottom: 12px;
 }
 
 .message {
-  padding: 10px 14px;
+  padding: 10px;
   border-radius: 10px;
   max-width: 70%;
-  color: black;
-}
-
-.admin-message {
-  background: #f1f5f9;
-  margin-right: auto;
-  text-align: left;
 }
 
 .user-message {
-  background: #dbeafe;
-  margin-left: auto;
+  margin: 0 0 0 auto;
   text-align: right;
+  background: #dbeafe;
+}
+
+.admin-message {
+  margin: 0 auto 0 0;
+  text-align: left;
+  background: #f1f5f9;
 }

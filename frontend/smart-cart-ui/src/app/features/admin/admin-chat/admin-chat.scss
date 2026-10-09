@@ -4,6 +4,12 @@
   background: #f8fafc;
 }
 
+.message-row {
+  display: flex;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
 .message-box {
   padding: 12px;
   border-radius: 10px;
@@ -13,6 +19,7 @@
 .user-message {
   background: #e2e8f0;
   margin-right: auto;
+  text-align: left;
 }
 
 .admin-message {
@@ -27,5 +34,5 @@
 }
 
 .card {
-  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }

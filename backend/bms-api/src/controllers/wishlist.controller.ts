@@ -1,20 +1,24 @@
-import {authenticate} from '@loopback/authentication';
+import {authenticate, STRATEGY} from 'loopback4-authentication';
 import {inject} from '@loopback/core';
 import {del, get, param, post, requestBody} from '@loopback/rest';
-import {SecurityBindings, UserProfile, securityId} from '@loopback/security';
-
+import {AuthenticationBindings} from 'loopback4-authentication';
+import {UserProfile} from '@loopback/security';
+import {authorize} from 'loopback4-authorization';
+import {Permissions} from '../authorization/permissions';
 import {WishlistService} from '../services';
 
-@authenticate('jwt')
 export class WishlistController {
   constructor(
     @inject('services.WishlistService')
     public wishlistService: WishlistService,
   ) {}
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.CreateWishlist],
+  })
   @post('/wishlist')
   async addToWishlist(
-    @inject(SecurityBindings.USER)
+    @inject(AuthenticationBindings.CURRENT_USER)
     currentUserProfile: UserProfile,
 
     @requestBody({
@@ -43,21 +47,25 @@ export class WishlistController {
       body.product_id,
     );
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadWishlist],
+  })
   @get('/wishlist')
   async getMyWishlist(
-    @inject(SecurityBindings.USER)
+    @inject(AuthenticationBindings.CURRENT_USER)
     currentUserProfile: UserProfile,
   ) {
-    console.log('Get user Id:',currentUserProfile.id);
-    return this.wishlistService.getMyWishlist(
-      Number(currentUserProfile.id),
-    );
+    console.log('Get user Id:', currentUserProfile.id);
+    return this.wishlistService.getMyWishlist(Number(currentUserProfile.id));
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.DeleteWishlist],
+  })
   @del('/wishlist/{wishlistId}')
   async removeWishlist(
-    @inject(SecurityBindings.USER)
+    @inject(AuthenticationBindings.CURRENT_USER)
     currentUserProfile: UserProfile,
 
     @param.path.number('wishlistId')

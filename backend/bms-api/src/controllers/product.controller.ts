@@ -1,11 +1,4 @@
-import {
-  Count,
-  CountSchema,
-  Filter,
-  FilterExcludingWhere,
-  repository,
-  Where,
-} from '@loopback/repository';
+import {Count, CountSchema, Getter, repository, Where} from '@loopback/repository';
 
 import {
   post,
@@ -18,21 +11,23 @@ import {
   requestBody,
   response,
 } from '@loopback/rest';
-import {Product} from '../models';
+import {Product, User} from '../models';
 import {ProductRepository} from '../repositories';
-import {authenticate} from '@loopback/authentication';
-import {authorize} from '@loopback/authorization';
-import {Roles} from '../authorization/roles';
+import {authenticate, AuthenticationBindings, STRATEGY} from 'loopback4-authentication';
+import {authorize} from 'loopback4-authorization';
+import {Permissions} from '../authorization/permissions';
+import { inject } from '@loopback/core';
 
-@authenticate('jwt')
 export class ProductController {
   constructor(
     @repository(ProductRepository)
     public productRepository: ProductRepository,
+      @inject.getter(AuthenticationBindings.CURRENT_USER)
+  private readonly getCurrentUser: Getter<User>,
   ) {}
-
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.CreateProduct],
   })
   @post('/products')
   @response(200, {
@@ -58,7 +53,10 @@ export class ProductController {
   ): Promise<Product> {
     return this.productRepository.create(product);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadProduct],
+  })
   @get('/products/count')
   @response(200, {
     description: 'Product model count',
@@ -71,7 +69,10 @@ export class ProductController {
   async count(@param.where(Product) where?: Where<Product>): Promise<Count> {
     return this.productRepository.count(where);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadProduct],
+  })
   @get('/products')
   @response(200, {
     description: 'Array of Product model instances',
@@ -86,14 +87,26 @@ export class ProductController {
       },
     },
   })
-  async find(
-    @param.filter(Product) filter?: Filter<Product>,
-  ): Promise<Product[]> {
-    return this.productRepository.find(filter);
-  }
+  async find(): Promise<Product[]> {
 
+
+    const user = await this.getCurrentUser();
+    console.log(['printing current user'])
+    console.log(user);
+    return this.productRepository.find({
+      include: [
+        {
+          relation: 'brand',
+        },
+        {
+          relation: 'category',
+        },
+      ],
+    });
+  }
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.UpdateProduct],
   })
   @patch('/products')
   @response(200, {
@@ -119,7 +132,10 @@ export class ProductController {
   ): Promise<Count> {
     return this.productRepository.updateAll(product, where);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadProduct],
+  })
   @get('/products/{id}')
   @response(200, {
     description: 'Product model instance',
@@ -131,17 +147,21 @@ export class ProductController {
       },
     },
   })
-  async findById(
-    @param.path.number('id') id: number,
-    @param.filter(Product, {
-      exclude: 'where',
-    })
-    filter?: FilterExcludingWhere<Product>,
-  ): Promise<Product> {
-    return this.productRepository.findById(id, filter);
+  async findById(@param.path.number('id') id: number): Promise<Product> {
+    return this.productRepository.findById(id, {
+      include: [
+        {
+          relation: 'brand',
+        },
+        {
+          relation: 'category',
+        },
+      ],
+    });
   }
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.UpdateProduct],
   })
   @patch('/products/{id}')
   @response(204, {
@@ -162,9 +182,9 @@ export class ProductController {
   ): Promise<void> {
     await this.productRepository.updateById(id, product);
   }
-
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.UpdateProduct],
   })
   @put('/products/{id}')
   @response(204, {
@@ -176,9 +196,9 @@ export class ProductController {
   ): Promise<void> {
     await this.productRepository.replaceById(id, product);
   }
-
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.DeleteProduct],
   })
   @del('/products/{id}')
   @response(204, {

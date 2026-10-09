@@ -19,17 +19,19 @@ import {
 } from '@loopback/rest';
 import {Category} from '../models';
 import {CategoryRepository} from '../repositories';
-import {authenticate} from '@loopback/authentication';
-import {authorize} from '@loopback/authorization';
-import {Roles} from '../authorization/roles';
-@authenticate('jwt')
+
+import {authorize} from 'loopback4-authorization';
+import {Permissions} from '../authorization/permissions';
+import {authenticate, STRATEGY} from 'loopback4-authentication';
+
 export class CategoryController {
   constructor(
     @repository(CategoryRepository)
     public categoryRepository: CategoryRepository,
   ) {}
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.CreateCategory],
   })
   @post('/categories')
   @response(200, {
@@ -51,7 +53,10 @@ export class CategoryController {
   ): Promise<Category> {
     return this.categoryRepository.create(category);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadCategory],
+  })
   @get('/categories/count')
   @response(200, {
     description: 'Category model count',
@@ -60,7 +65,10 @@ export class CategoryController {
   async count(@param.where(Category) where?: Where<Category>): Promise<Count> {
     return this.categoryRepository.count(where);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadCategory],
+  })
   @get('/categories')
   @response(200, {
     description: 'Array of Category model instances',
@@ -78,8 +86,9 @@ export class CategoryController {
   ): Promise<Category[]> {
     return this.categoryRepository.find(filter);
   }
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.UpdateCategory],
   })
   @patch('/categories')
   @response(200, {
@@ -99,7 +108,10 @@ export class CategoryController {
   ): Promise<Count> {
     return this.categoryRepository.updateAll(category, where);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadCategory],
+  })
   @get('/categories/{id}')
   @response(200, {
     description: 'Category model instance',
@@ -116,8 +128,9 @@ export class CategoryController {
   ): Promise<Category> {
     return this.categoryRepository.findById(id, filter);
   }
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.UpdateCategory],
   })
   @patch('/categories/{id}')
   @response(204, {
@@ -136,8 +149,9 @@ export class CategoryController {
   ): Promise<void> {
     await this.categoryRepository.updateById(id, category);
   }
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.UpdateCategory],
   })
   @put('/categories/{id}')
   @response(204, {
@@ -149,8 +163,9 @@ export class CategoryController {
   ): Promise<void> {
     await this.categoryRepository.replaceById(id, category);
   }
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.DeleteCategory],
   })
   @del('/categories/{id}')
   @response(204, {

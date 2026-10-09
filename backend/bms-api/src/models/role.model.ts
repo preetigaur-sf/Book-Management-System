@@ -1,5 +1,5 @@
 import {Entity, hasMany, model, property} from '@loopback/repository';
-
+import { Permissions } from 'loopback4-authorization';
 import {User} from './user.model';
 
 @model({
@@ -10,7 +10,7 @@ import {User} from './user.model';
     },
   },
 })
-export class Role extends Entity {
+export class Role extends Entity implements Permissions<string> {
   @property({
     type: 'number',
     id: true,
@@ -31,12 +31,18 @@ export class Role extends Entity {
       pattern: '^[A-Z_]+$',
     },
     postgresql: {
-      columnName: 'role_name',
+      columnName: 'name',
       dataType: 'varchar',
       dataLength: 50,
     },
   })
-  role_name: string;
+  name: string;
+
+  @property({
+  type: 'array',
+  itemType: 'string',
+})
+permissions: string[];
 
   @property({
     type: 'date',

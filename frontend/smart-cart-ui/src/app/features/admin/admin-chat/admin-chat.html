@@ -13,17 +13,19 @@
         <div class="list-group list-group-flush">
 
           <button
-            *ngFor="let user of users$ |async"
+            *ngFor="let user of users$ | async"
             type="button"
             class="list-group-item list-group-item-action"
             [class.active]="selectedUser?.id === user.id"
-            (click)="selectUser(user)">
+            (click)="selectUser(user)"
+          >
 
             <strong>
-              {{ user.first_name }} {{ user.last_name }}
+              {{ user.first_name }}
+              {{ user.last_name }}
             </strong>
 
-            <br>
+            <br />
 
             <small>
               {{ user.email }}
@@ -36,6 +38,7 @@
       </div>
 
     </div>
+
     <div class="col-md-9">
 
       <div class="card">
@@ -45,15 +48,11 @@
           <h5 class="mb-0">
 
             <span *ngIf="selectedUser">
-
               Chat with {{ selectedUser.first_name }}
-
             </span>
 
             <span *ngIf="!selectedUser">
-
               Select User
-
             </span>
 
           </h5>
@@ -62,36 +61,47 @@
 
         <div class="card-body chat-body">
 
-          <div *ngIf="!selectedUser" class="text-center mt-5">
-
-            <h5>Select a user to start chat.</h5>
-
+          <div
+            *ngIf="!selectedUser"
+            class="text-center mt-5"
+          >
+            <h5>
+              Select a user to start chat.
+            </h5>
           </div>
 
           <div *ngIf="selectedUser">
 
             <div
-              *ngFor="let msg of messages$ |async"
-              class="mb-3">
+              *ngFor="let msg of messages$ | async"
+              class="message-row"
+            >
 
               <div
                 class="message-box"
-                [ngClass]="msg.sender_id === 9 ? 'admin-message' : 'user-message'">
+                [ngClass]="
+                  msg.sender_id === currentUserId
+                    ? 'admin-message'
+                    : 'user-message'
+                "
+              >
 
                 <strong>
-
-                  {{ msg.sender_id === 9 ? 'Admin' : selectedUser.first_name }}
-
+                  {{
+                    msg.sender_id === currentUserId
+                      ? 'Admin'
+                      : selectedUser.first_name
+                  }}
                 </strong>
 
-                <br>
+                <br />
 
                 {{ msg.message }}
 
-                <br>
+                <br />
 
                 <small>
-                  {{ msg.created_at | date:'short' }}
+                  {{ msg.created_at | date: 'short' }}
                 </small>
 
               </div>
@@ -104,20 +114,21 @@
 
         <div
           class="card-footer d-flex"
-          *ngIf="selectedUser">
+          *ngIf="selectedUser"
+        >
 
           <input
             class="form-control"
             [(ngModel)]="message"
             (keyup.enter)="sendMessage()"
-            placeholder="Type your reply..." />
+            placeholder="Type your reply..."
+          />
 
           <button
             class="btn btn-primary ms-2"
-            (click)="sendMessage()">
-
+            (click)="sendMessage()"
+          >
             Send
-
           </button>
 
         </div>

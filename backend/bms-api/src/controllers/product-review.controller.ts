@@ -1,4 +1,4 @@
-import {authenticate} from '@loopback/authentication';
+import {authenticate, STRATEGY} from 'loopback4-authentication';
 import {inject} from '@loopback/core';
 import {
   del,
@@ -11,17 +11,19 @@ import {
 } from '@loopback/rest';
 import {SecurityBindings, UserProfile} from '@loopback/security';
 
-import { ProductReviewService } from '../services/product-review.service';
-import {authorize} from '@loopback/authorization';
-import {Roles} from '../authorization/roles';
+import {ProductReviewService} from '../services/product-review.service';
+import {authorize} from 'loopback4-authorization';
+import {Permissions} from '../authorization/permissions';
 
-@authenticate('jwt')
 export class ProductReviewController {
   constructor(
     @inject('services.ProductReviewService')
     public productReviewService: ProductReviewService,
   ) {}
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.CreateProductReview],
+  })
   @post('/products/{productId}/reviews')
   @response(200, {
     description: 'Add Product Review',
@@ -66,7 +68,10 @@ export class ProductReviewController {
       body.comment,
     );
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadProductReview],
+  })
   @get('/products/{productId}/reviews')
   @response(200, {
     description: 'Get Product Reviews',
@@ -77,7 +82,10 @@ export class ProductReviewController {
   ) {
     return this.productReviewService.getProductReviews(productId);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.DeleteProductReview],
+  })
   @del('/reviews/{reviewId}')
   @response(200, {
     description: 'Delete Own Review',
@@ -94,9 +102,9 @@ export class ProductReviewController {
       reviewId,
     );
   }
-
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.ReadProductReview],
   })
   @get('/reviews')
   @response(200, {
@@ -105,8 +113,9 @@ export class ProductReviewController {
   async getAllReviews() {
     return this.productReviewService.getAllReviews();
   }
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.ReadProductReview],
   })
   @get('/reviews/{id}')
   @response(200, {
@@ -118,8 +127,9 @@ export class ProductReviewController {
   ) {
     return this.productReviewService.getReviewById(id);
   }
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.UpdateProductReview],
   })
   @patch('/reviews/{id}')
   @response(200, {
@@ -161,8 +171,9 @@ export class ProductReviewController {
       body.comment,
     );
   }
+  @authenticate(STRATEGY.BEARER)
   @authorize({
-    allowedRoles: [Roles.ADMIN],
+    permissions: [Permissions.DeleteProductReview],
   })
   @del('/reviews/admin/{id}')
   @response(200, {

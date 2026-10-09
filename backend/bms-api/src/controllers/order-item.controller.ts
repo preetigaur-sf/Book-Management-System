@@ -19,13 +19,18 @@ import {
 } from '@loopback/rest';
 import {OrderItem} from '../models';
 import {OrderItemRepository} from '../repositories';
-
+import {authenticate, STRATEGY} from 'loopback4-authentication';
+import {authorize} from 'loopback4-authorization';
+import {Permissions} from '../authorization/permissions';
 export class OrderItemController {
   constructor(
     @repository(OrderItemRepository)
-    public orderItemRepository : OrderItemRepository,
+    public orderItemRepository: OrderItemRepository,
   ) {}
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.CreateOrderItem],
+  })
   @post('/order-items')
   @response(200, {
     description: 'OrderItem model instance',
@@ -46,7 +51,10 @@ export class OrderItemController {
   ): Promise<OrderItem> {
     return this.orderItemRepository.create(orderItem);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadOrderItem],
+  })
   @get('/order-items/count')
   @response(200, {
     description: 'OrderItem model count',
@@ -57,7 +65,10 @@ export class OrderItemController {
   ): Promise<Count> {
     return this.orderItemRepository.count(where);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadOrderItem],
+  })
   @get('/order-items')
   @response(200, {
     description: 'Array of OrderItem model instances',
@@ -75,7 +86,10 @@ export class OrderItemController {
   ): Promise<OrderItem[]> {
     return this.orderItemRepository.find(filter);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.UpdateOrderItem],
+  })
   @patch('/order-items')
   @response(200, {
     description: 'OrderItem PATCH success count',
@@ -94,7 +108,10 @@ export class OrderItemController {
   ): Promise<Count> {
     return this.orderItemRepository.updateAll(orderItem, where);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.ReadOrderItem],
+  })
   @get('/order-items/{id}')
   @response(200, {
     description: 'OrderItem model instance',
@@ -106,11 +123,15 @@ export class OrderItemController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(OrderItem, {exclude: 'where'}) filter?: FilterExcludingWhere<OrderItem>
+    @param.filter(OrderItem, {exclude: 'where'})
+    filter?: FilterExcludingWhere<OrderItem>,
   ): Promise<OrderItem> {
     return this.orderItemRepository.findById(id, filter);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.UpdateOrderItem],
+  })
   @patch('/order-items/{id}')
   @response(204, {
     description: 'OrderItem PATCH success',
@@ -128,7 +149,10 @@ export class OrderItemController {
   ): Promise<void> {
     await this.orderItemRepository.updateById(id, orderItem);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.UpdateOrderItem],
+  })
   @put('/order-items/{id}')
   @response(204, {
     description: 'OrderItem PUT success',
@@ -139,7 +163,10 @@ export class OrderItemController {
   ): Promise<void> {
     await this.orderItemRepository.replaceById(id, orderItem);
   }
-
+  @authenticate(STRATEGY.BEARER)
+  @authorize({
+    permissions: [Permissions.DeleteOrderItem],
+  })
   @del('/order-items/{id}')
   @response(204, {
     description: 'OrderItem DELETE success',

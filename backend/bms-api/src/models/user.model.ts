@@ -10,6 +10,10 @@ import {Role} from './role.model';
 import {Order} from './order.model';
 import {ProductReview} from './product-review.model';
 import {Wishlist} from './wishlist.model';
+import {
+  UserPermissionsOverride,
+  UserPermission,
+} from 'loopback4-authorization';
 
 @model({
   settings: {
@@ -19,7 +23,7 @@ import {Wishlist} from './wishlist.model';
     },
   },
 })
-export class User extends Entity {
+export class User extends Entity implements UserPermissionsOverride<string> {
   @property({
     type: 'number',
     id: true,
@@ -96,6 +100,12 @@ export class User extends Entity {
   })
   role_id: number;
 
+ @property({
+  type: 'array',
+  itemType: 'object',
+})
+permissions: UserPermission<string>[];
+
   @property({
     type: 'date',
     postgresql: {
@@ -143,7 +153,7 @@ export interface UserRelations {
   productReviews?: ProductReview[];
   wishlists?: Wishlist[];
   carts?: Cart[];
-  orders?:Order[];
+  orders?: Order[];
 }
 
 export type UserWithRelations = User & UserRelations;

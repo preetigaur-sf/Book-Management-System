@@ -1,10 +1,17 @@
-import { Component, OnInit, inject, OnDestroy, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  inject,
+  OnDestroy,
+  AfterViewInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, switchMap, tap } from 'rxjs';
 
 import { ChatService } from '../../../core/services/chat.service';
 import { ChatMessage } from '../../../core/models/chat-message.model';
+import { Auth } from '../../../core/services/auth';
 
 @Component({
   selector: 'app-chat',
@@ -14,22 +21,49 @@ import { ChatMessage } from '../../../core/models/chat-message.model';
   styleUrl: './chat.scss',
 })
 export class Chat implements OnInit, AfterViewInit, OnDestroy {
+  private auth = inject(Auth);
   private chatService = inject(ChatService);
 
+  currentUserId!: number;
+  adminId!: number;
+
   messages$: Observable<ChatMessage[]> = new Observable();
+
   message = '';
+
   private chatObserver!: MutationObserver;
 
   ngOnInit(): void {
-    this.loadConversation();
+    const token = this.auth.getToken();
+
+    if (!token) {
+      return;
+    }
+
+    const payload = JSON.parse(
+      atob(token.split('.')[1]),
+    );
+
+    this.currentUserId = Number(payload.id);
+
+    console.log('Current User ID:', this.currentUserId);
+
+    this.messages$ = this.chatService.getAdmin().pipe(
+      tap((admin) => {
+        this.adminId = Number(admin.id);
+
+        console.log('Admin ID:', this.adminId);
+      }),
+      switchMap((admin) =>
+        this.chatService.getConversation(
+          Number(admin.id),
+        ),
+      ),
+    );
   }
 
   ngAfterViewInit(): void {
     this.chatScroll();
-  }
-
-  loadConversation(): void {
-    this.messages$ = this.chatService.getConversation(9);
   }
 
   handleEnter(event: KeyboardEvent): void {
@@ -37,6 +71,7 @@ export class Chat implements OnInit, AfterViewInit, OnDestroy {
       if (event.shiftKey) {
         return;
       }
+
       event.preventDefault();
       this.sendMessage();
     }
@@ -44,46 +79,82 @@ export class Chat implements OnInit, AfterViewInit, OnDestroy {
 
   adjustHeight(event: any): void {
     const textarea = event.target;
+
     textarea.style.height = 'auto';
-    textarea.style.height = textarea.scrollHeight + 'px';
+    textarea.style.height =
+      textarea.scrollHeight + 'px';
   }
 
   resetHeight(): void {
-    const textarea = document.querySelector('.card-footer textarea') as HTMLTextAreaElement;
+    const textarea =
+      document.querySelector(
+        '.card-footer textarea',
+      ) as HTMLTextAreaElement;
+
     if (textarea) {
       textarea.style.height = 'auto';
     }
   }
 
   sendMessage(): void {
-    if (!this.message.trim()) {
+    if (!this.message.trim() || !this.adminId) {
       return;
     }
 
-    this.chatService.sendMessage(9, this.message).subscribe({
-      next: () => {
-        this.message = '';
-        this.resetHeight();
-        this.loadConversation();
-      },
-      error: (err) => {
-        console.error(err);
-      },
-    });
+    this.chatService
+      .sendMessage(
+        this.message,
+        this.adminId,
+      )
+      .subscribe({
+        next: () => {
+          this.message = '';
+
+          this.resetHeight();
+
+          this.loadConversation();
+        },
+        error: (err) => {
+          console.error(
+            'Send message error:',
+            err,
+          );
+        },
+      });
+  }
+
+  loadConversation(): void {
+    if (!this.adminId) {
+      return;
+    }
+
+    this.messages$ =
+      this.chatService.getConversation(
+        this.adminId,
+      );
   }
 
   chatScroll(): void {
-    
-      const container = document.querySelector('.chat-body');
-      if (container) {
-        this.chatObserver = new MutationObserver(() => {
-          container.scrollTop = container.scrollHeight;
-        });
+    const container =
+      document.querySelector('.chat-body');
 
-        this.chatObserver.observe(container, { childList: true });
-        container.scrollTop = container.scrollHeight;
-      }
-   
+    if (!container) {
+      return;
+    }
+
+    this.chatObserver =
+      new MutationObserver(() => {
+        container.scrollTop =
+          container.scrollHeight;
+      });
+
+    this.chatObserver.observe(container, {
+      childList: true,
+      subtree: true,
+    });
+
+    container.scrollTop =
+      container.scrollHeight;
   }
 
   ngOnDestroy(): void {

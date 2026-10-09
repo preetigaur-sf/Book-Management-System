@@ -4,16 +4,29 @@ import {
   requestBody,
   response,
   getModelSchemaRef,
+  param,
+  HttpErrors,
 } from '@loopback/rest';
-
-import {User} from '../models';
+import {authorize} from 'loopback4-authorization';
+import {RefreshTokenRequest, User} from '../models';
 import {LoginRequest} from '../models/login-request.model';
 import {UserService} from '../services/user.service';
+import {authenticate, STRATEGY} from 'loopback4-authentication';
+import {
+  RefreshTokenRepository,
+  RevokedTokenRepository,
+} from '@sourceloop/authentication-service';
 
 export class AuthController {
   constructor(
     @inject('services.UserService')
     private userService: UserService,
+
+    @inject('repositories.RefreshTokenRepository')
+    private refreshTokenRepository: RefreshTokenRepository,
+
+    @inject('repositories.RevokedTokenRepository')
+    private revokedTokenRepository: RevokedTokenRepository,
   ) {}
 
   @post('/register')
@@ -52,6 +65,12 @@ export class AuthController {
             token: {
               type: 'string',
             },
+            refreshToken: {
+              type: 'string',
+            },
+            role: {
+              type: 'string',
+            },
           },
         },
       },
@@ -66,8 +85,84 @@ export class AuthController {
       },
     })
     loginData: LoginRequest,
-  ): Promise<{ token: string;role:string }> {
+  ): Promise<{token: string; refreshToken: string; role: string}> {
+    console.log("Successfully logged in");
     return this.userService.loginUser(loginData);
-    
+  }
+
+  @post('/token-refresh')
+  @response(200, {
+    description: 'Refresh Access Token',
+  })
+  async refreshToken(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(RefreshTokenRequest),
+        },
+      },
+    })
+    refreshTokenRequest: RefreshTokenRequest,
+  ) {
+    console.log('TOKEN REFRESH CONTROLLER HIT');
+
+    return this.userService.refreshAccessToken(
+      refreshTokenRequest.refreshToken,
+    );
+  }
+
+  @authenticate(STRATEGY.BEARER, {
+    passReqToCallback: true,
+  })
+  @authorize({permissions: ['*']})
+  @post('/logout')
+  @response(200, {
+    description: 'Logout successful',
+  })
+  async logout(
+    @param.header.string('Authorization')
+    authorization: string,
+
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(RefreshTokenRequest),
+        },
+      },
+    })
+    refreshTokenRequest: RefreshTokenRequest,
+  ) {
+    const token = authorization?.replace(/bearer /i, '');
+
+    if (!token || !refreshTokenRequest.refreshToken) {
+      throw new HttpErrors.UnprocessableEntity(
+        'Access token or refresh token is missing',
+      );
+    }
+
+    const refreshTokenData = await this.refreshTokenRepository.get(
+      refreshTokenRequest.refreshToken,
+    );
+
+    if (!refreshTokenData) {
+      throw new HttpErrors.Unauthorized('Invalid or expired refresh token');
+    }
+
+    if (refreshTokenData.accessToken !== token) {
+      throw new HttpErrors.Unauthorized(
+        'Access token and refresh token do not match',
+      );
+    }
+
+    await this.revokedTokenRepository.set(token, {
+      token,
+    });
+
+    await this.refreshTokenRepository.delete(refreshTokenRequest.refreshToken);
+
+    console.log("Logout successfully");
+    return {
+      success: true,
+    };
   }
 }
